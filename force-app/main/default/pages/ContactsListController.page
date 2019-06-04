@@ -1,0 +1,14 @@
+<!--
+ * VFP: ContactsListController
+ * Description: Trailhead training visualforce page
+ * Link: https://trailhead.salesforce.com/content/learn/modules/visualforce_fundamentals/visualforce_custom_controllers 
+-->
+
+<apex:page controller="ContactsListController">
+    <apex:form >
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+            
+            <!-- Contacts List goes here -->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

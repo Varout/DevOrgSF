@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fitbit_Month__c</fullName>
+    <externalId>false</externalId>
+    <label>Fitbit Month</label>
+    <referenceTo>Fitbit_Month__c</referenceTo>
+    <relationshipLabel>Fitbit Days</relationshipLabel>
+    <relationshipName>Fitbit_Days</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

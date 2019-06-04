@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_in_range</fullName>
+    <active>true</active>
+    <description>Making sure the implemented date is not in the future.</description>
+    <errorConditionFormula>Implemented_Date__c &gt; TODAY()</errorConditionFormula>
+    <errorDisplayField>Implemented_Date__c</errorDisplayField>
+    <errorMessage>The implementation date must be today or in the past, not in the future.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Genre__c</fullName>
+    <externalId>false</externalId>
+    <label>Genre</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Classic</fullName>
+                <default>false</default>
+                <label>Classic</label>
+            </value>
+            <value>
+                <fullName>Crime</fullName>
+                <default>false</default>
+                <label>Crime</label>
+            </value>
+            <value>
+                <fullName>Fable </fullName>
+                <default>false</default>
+                <label>Fable </label>
+            </value>
+            <value>
+                <fullName>Fairy tale </fullName>
+                <default>false</default>
+                <label>Fairy tale </label>
+            </value>
+            <value>
+                <fullName>Fantasy</fullName>
+                <default>false</default>
+                <label>Fantasy</label>
+            </value>
+            <value>
+                <fullName>Folklore </fullName>
+                <default>false</default>
+                <label>Folklore </label>
+            </value>
+            <value>
+                <fullName>Historical fiction</fullName>
+                <default>false</default>
+                <label>Historical fiction</label>
+            </value>
+            <value>
+                <fullName>Horror </fullName>
+                <default>false</default>
+                <label>Horror </label>
+            </value>
+            <value>
+                <fullName>Humor</fullName>
+                <default>false</default>
+                <label>Humor</label>
+            </value>
+            <value>
+                <fullName>Legend </fullName>
+                <default>false</default>
+                <label>Legend </label>
+            </value>
+            <value>
+                <fullName>Magical realism </fullName>
+                <default>false</default>
+                <label>Magical realism </label>
+            </value>
+            <value>
+                <fullName>Mystery </fullName>
+                <default>false</default>
+                <label>Mystery </label>
+            </value>
+            <value>
+                <fullName>Mythology </fullName>
+                <default>false</default>
+                <label>Mythology </label>
+            </value>
+            <value>
+                <fullName>Picture book </fullName>
+                <default>false</default>
+                <label>Picture book </label>
+            </value>
+            <value>
+                <fullName>Realistic fiction</fullName>
+                <default>false</default>
+                <label>Realistic fiction</label>
+            </value>
+            <value>
+                <fullName>Science fiction </fullName>
+                <default>false</default>
+                <label>Science fiction </label>
+            </value>
+            <value>
+                <fullName>Short story </fullName>
+                <default>false</default>
+                <label>Short story </label>
+            </value>
+            <value>
+                <fullName>Suspense</fullName>
+                <default>false</default>
+                <label>Suspense</label>
+            </value>
+            <value>
+                <fullName>Thriller </fullName>
+                <default>false</default>
+                <label>Thriller </label>
+            </value>
+            <value>
+                <fullName>Tall tale </fullName>
+                <default>false</default>
+                <label>Tall tale </label>
+            </value>
+            <value>
+                <fullName>Western </fullName>
+                <default>false</default>
+                <label>Western </label>
+            </value>
+            <value>
+                <fullName>Biography </fullName>
+                <default>false</default>
+                <label>Biography </label>
+            </value>
+            <value>
+                <fullName>Autobiography</fullName>
+                <default>false</default>
+                <label>Autobiography</label>
+            </value>
+            <value>
+                <fullName>Essay  </fullName>
+                <default>false</default>
+                <label>Essay  </label>
+            </value>
+            <value>
+                <fullName>Owner&#39;s manual </fullName>
+                <default>false</default>
+                <label>Owner&#39;s manual </label>
+            </value>
+            <value>
+                <fullName>Journalism </fullName>
+                <default>false</default>
+                <label>Journalism </label>
+            </value>
+            <value>
+                <fullName>Lab Report  </fullName>
+                <default>false</default>
+                <label>Lab Report  </label>
+            </value>
+            <value>
+                <fullName>Memoir  </fullName>
+                <default>false</default>
+                <label>Memoir  </label>
+            </value>
+            <value>
+                <fullName>Narrative nonfiction</fullName>
+                <default>false</default>
+                <label>Narrative nonfiction</label>
+            </value>
+            <value>
+                <fullName>Reference book  </fullName>
+                <default>false</default>
+                <label>Reference book  </label>
+            </value>
+            <value>
+                <fullName>Self-help book  </fullName>
+                <default>false</default>
+                <label>Self-help book  </label>
+            </value>
+            <value>
+                <fullName>Speech  </fullName>
+                <default>false</default>
+                <label>Speech  </label>
+            </value>
+            <value>
+                <fullName>Textbook  </fullName>
+                <default>false</default>
+                <label>Textbook  </label>
+            </value>
+            <value>
+                <fullName>Adventure</fullName>
+                <default>false</default>
+                <label>Adventure</label>
+            </value>
+            <value>
+                <fullName>Drama</fullName>
+                <default>false</default>
+                <label>Drama</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
