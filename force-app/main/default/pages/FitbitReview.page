@@ -1,7 +1,0 @@
-<apex:page controller="FitbitReviewController">
-
-<h1>Returned Data</h1>
-
-<p>{! returnValues}</p>
-
-</apex:page>
