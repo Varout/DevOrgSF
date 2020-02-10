@@ -5,6 +5,9 @@
 # Salesforce cache
 .sfdx/
 
+# VS Code cache
+.vscode/
+
 # Logs
 logs
 *.log
