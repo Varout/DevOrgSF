@@ -1,5 +1,5 @@
 # SFDX App
-
+    - Cleaned up February 2020. Removed classes, vf pages, custom objects, triggers
 ## Dev, Build and Test
     - Personal development org
     - Used for projects and testing
