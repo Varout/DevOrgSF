@@ -6,24 +6,32 @@
 public class SingletonObject {
 
     private static SingletonObject singletonInstance = new SingletonObject();
+    public Boolean iHaveBeenCreated { get; private set; }
+    public Integer initCount { get; private set; }
 
     /**
      * Private constructor
      */
-    private SingletonObject() {}
+    private SingletonObject() {
+        this.iHaveBeenCreated = true;
+        this.initCount = 0;
+    }
 
     /**
      * Return instance of singleton
      */
     public static SingletonObject getIntance() {
+        singletonInstance.initCount += 1;
         return singletonInstance;
     }
 
     /**
      * Example of a function
      */
-    public void demoFunction() {
-        System.debug('Debug output');
+    public String demoFunction() {
+        String returnString = 'Debug output';
+        System.debug(returnString);
+        return returnString;
     }
 }
 
