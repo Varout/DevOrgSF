@@ -10,6 +10,7 @@ public with sharing class AccountSingleton {
     private Map<String, String> mapFieldNameType { get; set; }
     private Map<String, List<Schema.PicklistEntry>> mapPicklistFieldLists { get; set; }
     private Map<String, Schema.SObjectField> mapAccFields { get; set; }
+    public Integer randomTestNumber { get; private set; }
     final private Set<String> ENUM_PICKLISTS = new Set<String>{'PICKLIST', 'MULTIPICKLIST'};
 
     /* ------------------- */
@@ -22,6 +23,8 @@ public with sharing class AccountSingleton {
     private AccountSingleton() {
         SObjectType accountType = Schema.getGlobalDescribe().get('Account');
         this.mapAccFields = accountType.getDescribe().fields.getMap();
+
+        this.randomTestNumber = Integer.valueOf(Math.round(Math.random() * 1000));    //  Only used in unit tests
 
         this.populateRecordTypes();
         this.populateFieldNameTypes();
@@ -101,6 +104,18 @@ public with sharing class AccountSingleton {
     public Id getRecordTypeIdFromName(String rtName) {
         if (this.mapRecordTypeName.keySet().contains(rtName)) {
             return this.mapRecordTypeName.get(rtName).Id;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Returns the mapFieldNameType map which is a map of Account.Field.DeveloperName
+     * to Account.Field.Type
+     */
+    public Map<String, String> getMapFieldNameType() {
+        if (!this.mapFieldNameType.isEmpty()) {
+            return this.mapFieldNameType;
         } else {
             return null;
         }
