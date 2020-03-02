@@ -23,6 +23,24 @@ public with sharing class SObjectUtil {
         https://medium.com/@sfdcbrewery/apex-design-patterns-sfdc-brewery-salesforce-developer-interview-preparation-series-2c5296a9ed0f
         https://www.jitendrazaa.com/blog/apex-design-patterns/
         https://www.mstsolutions.com/technical/apex-design-patterns/
+
+
+ * If is picklist: getPicklistValues() - List<Schema.PicklistEntry> ple;
+ * If is integer: getDigits() - Max length
+ * If is double: getPrecision() - Max length
+ * If is double: getScale() - Number of digits to the right of decimal point
+
+//  Link: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_fields_describe.htm#apex_methods_system_fields_describe
+SObjectType accountType = Schema.getGlobalDescribe().get('Account');
+Map<String, Schema.SObjectField> mfields = accountType.getDescribe().fields.getMap();
+for (String s : mfields.keySet()) {
+    System.debug(mfields.get(s).getDescribe().getName());
+    System.debug(mfields.get(s).getDescribe().getLabel());
+    System.debug(mfields.get(s).getDescribe().getType());
+    System.debug(mfields.get(s).getDescribe().getPicklistValues());
+}
+
+
     */
 
     /**
