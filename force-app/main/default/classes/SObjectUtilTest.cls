@@ -53,7 +53,36 @@ private class SObjectUtilTest {
      */
     @isTest
     static void testConstructorSuccessAndFail() {
+        String sObjectAPINameToTest = null;
+        Set<String> preferredSObjsToCheck = new Set<String>{'Account', 'Contact', 'Case', 'Lead', 'Opportunity', 'Order'};
+        Set<String> retrievedSObjs = SObjectUtil.getListOfOrgSObjects();
+        for (String sObj : preferredSObjsToCheck) {
+            if (retrievedSObjs.contains(sObj)) {
+                sObjectAPINameToTest = sObj;
+                break;
+            }
+        }
 
+        Boolean resultOfPassTest = null;
+        String exceptionPass = '';
+        try {
+            SObjectUtil utilTestPass = new SObjectUtil(sObjectAPINameToTest);
+            resultOfPassTest = true;
+        } catch (Exception e) {
+            resultOfPassTest = false;
+            exceptionPass = e.getMessage();
+        }
+        System.assertEquals(true, resultOfPassTest, 'Could not create SObjectUtil class for SObject: ' + sObjectAPINameToTest + '. Error: ' + exceptionPass);
+
+        String sObjFail = sObjectAPINameToTest + '__Fail';
+        Boolean resultOfFailTest = null;
+        try {
+            SObjectUtil utilTestFail = new SObjectUtil(sObjFail);
+            resultOfFailTest = true;
+        } catch (Exception e) {
+            resultOfFailTest = false;
+        }
+        System.assertEquals(false, resultOfFailTest, 'The SObjectUtil class was successfully created for: ' + sObjFail + ' when it should have failed.');
     }
 
     /**
