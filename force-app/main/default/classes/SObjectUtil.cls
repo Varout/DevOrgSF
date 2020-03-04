@@ -1,8 +1,9 @@
 /**
- * @class:  SObjectUtil.cls
- * @test:   SObjectUtilTest.cls
- * @author: Jason (Trineo Ltd)
- * @desc:   
+ * @class:   SObjectUtil.cls
+ * @test:    SObjectUtilTest.cls
+ * @author:  Jason Auger
+ * @desc:    
+ * @licence: 
  * 
  * Make the class so that it can function as an instance for each sobject type,
  * different to a singleton.  So this can be used to create a util var for multiple
@@ -10,11 +11,9 @@
  * - SObjectUtil sObjectUtilAccount = new SObjectUtil('Account');
  * - SObjectUtil sObjectUtilContact = new SObjectUtil('Contact');
  * - SObjectUtil sObjectUtilOrder   = new SObjectUtil('Order__c');
- * 
- * @Extra Notes: The idea of this is to enable getting a lot of needed information
- * from any SObject (standard or custom) using a single util class
  */
 public with sharing class SObjectUtil {
+    public class SObjectUtilException extends Exception{}
 
     final private Set<String> ENUM_PICKLISTS = new Set<String>{'PICKLIST', 'MULTIPICKLIST'};
     //  Salesforce ENUM information: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_enum_Schema_DisplayType.htm
@@ -49,8 +48,6 @@ public with sharing class SObjectUtil {
         } catch (Exception e) {
             throw new SOBjectUtilException('An error occurred: ' + e.getMessage());
         }
-
-
     }
 
     /*  ****************************************  */
@@ -133,15 +130,15 @@ public with sharing class SObjectUtil {
         return Schema.SObjectType.Account.fields.getMap().containsKey('isPersonAccount');
     }
 
-    // (Done) Get all fields and types
-    // (Done) SOQL selector function
-    // (Done) Get all picklists and their options
-    // (Done) Get a list of all SObjects (standard / custom)
-    // (Done) Get list of record types for SObjects
-    // (Done) Does the org use person accounts
-    // (****) Get Map of fields with default values, and what the value is
-
     /*
+        (Done) Get all fields and types
+        (Done) SOQL selector function
+        (Done) Get all picklists and their options
+        (Done) Get a list of all SObjects (standard / custom)
+        (Done) Get list of record types for SObjects
+        (Done) Does the org use person accounts
+        (****) Get Map of fields with default values, and what the value is
+
         Useful links
         https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_fields_describe.htm#apex_methods_system_fields_describe
         https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_SObjectField.htm
@@ -149,13 +146,5 @@ public with sharing class SObjectUtil {
         https://medium.com/@sfdcbrewery/apex-design-patterns-sfdc-brewery-salesforce-developer-interview-preparation-series-2c5296a9ed0f
         https://www.jitendrazaa.com/blog/apex-design-patterns/
         https://www.mstsolutions.com/technical/apex-design-patterns/
-
-        * If is picklist: getPicklistValues() - List<Schema.PicklistEntry> ple;
-        * If is integer: getDigits() - Max length
-        * If is double: getPrecision() - Max length
-        * If is double: getScale() - Number of digits to the right of decimal point
     */
-
-    public class SObjectUtilException extends Exception{}
-
 }
