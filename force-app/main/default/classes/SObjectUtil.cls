@@ -107,7 +107,7 @@ public with sharing class SObjectUtil {
      * in the current Salesforce org
      * @return  Set<String>.
      */
-    public static Set<String> getListOfOrgSObjects() {
+    public static Set<String> getSetOfOrgSObjects() {
         Set<String> sObjects = new Set<String>();
         for (Schema.SObjectType sObjType : Schema.getGlobalDescribe().values()) {
             sObjects.add(String.valueOf(sObjType));
