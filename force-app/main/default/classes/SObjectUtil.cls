@@ -4,13 +4,6 @@
  * @author:  Jason Auger
  * @desc:    
  * @licence: 
- * 
- * Make the class so that it can function as an instance for each sobject type,
- * different to a singleton.  So this can be used to create a util var for multiple
- * different sobjects.  Examples:
- * - SObjectUtil sObjectUtilAccount = new SObjectUtil('Account');
- * - SObjectUtil sObjectUtilContact = new SObjectUtil('Contact');
- * - SObjectUtil sObjectUtilOrder   = new SObjectUtil('Order__c');
  */
 public with sharing class SObjectUtil {
     public class SObjectUtilException extends Exception{}
@@ -129,22 +122,4 @@ public with sharing class SObjectUtil {
     public static Boolean orgUsesPersonAccounts() {
         return Schema.SObjectType.Account.fields.getMap().containsKey('isPersonAccount');
     }
-
-    /*
-        (Done) Get all fields and types
-        (Done) SOQL selector function
-        (Done) Get all picklists and their options
-        (Done) Get a list of all SObjects (standard / custom)
-        (Done) Get list of record types for SObjects
-        (Done) Does the org use person accounts
-        (****) Get Map of fields with default values, and what the value is
-
-        Useful links
-        https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_fields_describe.htm#apex_methods_system_fields_describe
-        https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_SObjectField.htm
-        https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_RecordTypeInfo.htm
-        https://medium.com/@sfdcbrewery/apex-design-patterns-sfdc-brewery-salesforce-developer-interview-preparation-series-2c5296a9ed0f
-        https://www.jitendrazaa.com/blog/apex-design-patterns/
-        https://www.mstsolutions.com/technical/apex-design-patterns/
-    */
 }
