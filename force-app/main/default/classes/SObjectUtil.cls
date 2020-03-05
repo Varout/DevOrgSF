@@ -2,8 +2,27 @@
  * @class:   SObjectUtil.cls
  * @test:    SObjectUtilTest.cls
  * @author:  Jason Auger
- * @desc:    
- * @licence: 
+ * @desc:    The aim of this class is to make it easier to get the needed infromation from SObjects
+ *           without having to go into the finer details of working with the Schema object and 
+ *           the array of get/describe functions that go with it.
+ * @licence: Copyright (c) 2020, Jason Auger
+ *           Permission is hereby granted, free of charge, to any person obtaining a copy
+ *           of this software and associated documentation files (the "Software"), to deal
+ *           in the Software without restriction, including without limitation the rights
+ *           to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *           copies of the Software, and to permit persons to whom the Software is
+ *           furnished to do so, subject to the following conditions:
+ *           
+ *           The above copyright notice and this permission notice shall be included in all
+ *           copies or substantial portions of the Software.
+ *           
+ *           THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *           IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *           FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *           AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *           LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *           OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *           SOFTWARE.
  */
 public with sharing class SObjectUtil {
     public class SObjectUtilException extends Exception{}
@@ -29,7 +48,7 @@ public with sharing class SObjectUtil {
         try {
             this.theSObjectDescribe = Schema.getGlobalDescribe().get(sObjectType);
         } catch (Exception e) {
-            throw new SObjectUtilException('An error occurred.', e);
+            throw new SObjectUtilException('An error occurred: ' + e.getMessage());
         }
         if (this.theSObjectDescribe == null) {
             throw new SObjectUtilException('The SObject: "' + sObjectType + '" does not exist in this org.');

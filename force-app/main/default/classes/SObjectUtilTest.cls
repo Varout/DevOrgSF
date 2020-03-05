@@ -3,6 +3,24 @@
  * @author:  Jason Auger
  * @desc:    Test class for SObjectUtil.cls
  * @licence: 
+ *      Copyright (c) 2020, Jason Auger
+ *      Permission is hereby granted, free of charge, to any person obtaining a copy
+ *      of this software and associated documentation files (the "Software"), to deal
+ *      in the Software without restriction, including without limitation the rights
+ *      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *      copies of the Software, and to permit persons to whom the Software is
+ *      furnished to do so, subject to the following conditions:
+ *      
+ *      The above copyright notice and this permission notice shall be included in all
+ *      copies or substantial portions of the Software.
+ *      
+ *      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *      SOFTWARE.
  */
 @isTest
 private class SObjectUtilTest {
@@ -114,8 +132,20 @@ private class SObjectUtilTest {
             indexCount++;
         }
 
-        //  Do the asserts
+        //  Get the info and do the asserts
+        SObjectUtil testSObjUtil = new SObjectUtil(sObjectAPINameToTest);
+        Integer testSObjUtilRtSize = testSObjUtil.mapRecordTypeNameToId.keySet().size();
+        List<RecordType> querySObjRts = [
+            SELECT Id, Name
+            FROM RecordType
+            WHERE SObjectType = :sObjectAPINameToTest
+        ];
 
+        System.assertEquals(querySObjRts.size(), testSObjUtil.mapRecordTypeNameToId.keySet().size());
+        for (RecordType rt : querySObjRts) {
+            System.assert(testSObjUtil.mapRecordTypeNameToId.keySet().contains(rt.Name));
+            System.assertEquals(rt.Id, testSObjUtil.mapRecordTypeNameToId.get(rt.Name));
+        }
     }
 
     /**
@@ -147,7 +177,22 @@ private class SObjectUtilTest {
             System.assertNotEquals(null, sObjectAPINameToTest);
     
             //  Do the asserts
-            SObject sObjUtil = new SObjUtil(sObjectAPINameToTest);
+            SObjectUtil testSObjUtil = new SObjectUtil(sObjectAPINameToTest);
+            Integer testSObjUtilRtSize = testSObjUtil.mapRecordTypeNameToId.keySet().size();
+            List<RecordType> querySObjRts = [
+                SELECT Id, Name
+                FROM RecordType
+                WHERE SObjectType = :sObjectAPINameToTest
+            ];
+
+            System.assertEquals(querySObjRts.size(), testSObjUtil.mapRecordTypeNameToId.keySet().size());
+            for (RecordType rt : querySObjRts) {
+                System.assert(testSObjUtil.mapRecordTypeNameToId.keySet().contains(rt.Name));
+                System.assertEquals(rt.Id, testSObjUtil.mapRecordTypeNameToId.get(rt.Name));
+            }
+    
+
+
         } else {
             //  Can't really be tested if no objects have Record Types set up
         }
