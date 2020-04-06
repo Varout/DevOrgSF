@@ -11,5 +11,5 @@
         <restricted>true</restricted>
         <valueSetName>Pokemon_Locations</valueSetName>
     </valueSet>
-    <visibleLines>10</visibleLines>
+    <visibleLines>8</visibleLines>
 </CustomField>

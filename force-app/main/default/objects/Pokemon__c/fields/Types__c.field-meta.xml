@@ -10,5 +10,5 @@
         <restricted>true</restricted>
         <valueSetName>Pokemon_Types</valueSetName>
     </valueSet>
-    <visibleLines>5</visibleLines>
+    <visibleLines>8</visibleLines>
 </CustomField>
