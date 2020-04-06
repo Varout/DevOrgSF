@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>None</fullName>
+        <default>false</default>
+        <label>None</label>
+    </customValue>
+    <customValue>
+        <fullName>Male</fullName>
+        <default>false</default>
+        <label>Male</label>
+    </customValue>
+    <customValue>
+        <fullName>Female</fullName>
+        <default>false</default>
+        <label>Female</label>
+    </customValue>
+    <description>Available genders for pokémon</description>
+    <masterLabel>Pokémon Gender</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
