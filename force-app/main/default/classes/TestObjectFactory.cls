@@ -4,9 +4,13 @@
  */
 public class TestObjectFactory {
 
-    /* **************************************************  */ 
-    /*                    Accounts                         */
-    /* **************************************************  */ 
+    final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
+    final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
+    final private static SObjectUtil OBJ_UTIL_DESIRE  = new SObjectUtil('Desire__c');
+
+    /* **************************************************  */
+    /*                    Account                          */
+    /* **************************************************  */
 
     /**
      * Creates a new account for testing
@@ -51,9 +55,9 @@ public class TestObjectFactory {
         return testAccounts;
     }
 
-    /* **************************************************  */ 
-    /*                    Contacts                         */
-    /* **************************************************  */ 
+    /* **************************************************  */
+    /*                    Contact                          */
+    /* **************************************************  */
 
     /**
      * Creates a new contact for testing
@@ -188,4 +192,78 @@ public class TestObjectFactory {
 
         return testContacts;
     }
+
+    /* **************************************************  */
+    /*                    Desire__c                        */
+    /* **************************************************  */
+
+    /**
+     * Creates a Desire__c record for testing
+     * @param   String. Name of the desire, stored in the field: 'Thing__c'
+     * @param   Id. Id of the user who will be the owner of the record. Can be set to null
+     * @param   Boolean. Whether or not to insert the test record
+     * @return  Desire__c. The test Desire__c record
+     */
+    public static Desire__c createTestDesire(String nameOfDesire, Id ownerId, Boolean isPurchased, Boolean doInsert) {
+        Desire__c testDesire = new Desire__c();
+
+        if (ownerId != null) {
+            testDesire.OwnerId = ownerId;
+        }
+
+        testDesire.Thing__c = nameOfDesire;
+        testDesire.Reason__c = 'Lorem Ipsum';
+        testDesire.Status__c = 'Wanted';
+        testDesire.Research_Notes__c = '';
+        testDesire.Type__c = 'Game';    //  Pick random
+        testDesire.Platform__c = 'PC - Steam';  //  Pick random if Type__c = 'Game'
+        
+        Date asOfDate = Date.newInstance(2020, 12, 01);
+        testDesire.As_Of_Date__c = asOfDate;
+        testDesire.As_Of_Price__c = 100.00;
+        testDesire.As_Of_Store__c = 'Just another brick in the store';
+        testDesire.As_Of_URL__c = '';
+
+        if (isPurchased) {
+            Integer purchasedDaysAfter = 5;
+            Date purchaseDate = asOfDate.addDays(purchasedDaysAfter);
+            Decimal percentageOfAsOfPrice = 1.00;
+
+            testDesire.Purchased_Date__c  = purchaseDate;
+            testDesire.Purchased_Price__c = percentageOfAsOfPrice;
+            testDesire.Purchased_Store__c = testDesire.As_Of_Store__c;
+            testDesire.Purchased_Notes__c = 'I don\'t know if I got a good deal or not.';
+        }
+
+        if (doInsert) {
+            insert testDesire;
+        }
+
+        return testDesire;
+    }
+
+    /**
+     * Creates N amount of Desire__c records for testing and assign them all to the same user
+     * @param   Integer. The number of test Desire__c records to create
+     * @param   Id. The Id of the user to assign as the owner to all test records
+     * @param   Boolean. Whether or not to insert the test records
+     * @return  List<Desire__c>. List of test Desire__c records
+     */
+    public static List<Desire__c> createNTestDesires(Integer numberToCreate, Id ownerId, Boolean doInsert) {
+        List<Desire__c> testDesires = new List<Desire__c>();
+
+        for (Integer dCount = 0; dCount < numberToCreate; dCount++) {
+            String desireThingName = 'Test Thing #' + String.valueOf(dCount + 1);
+            Boolean isPurchased = (Math.random() > 0.5);
+
+            testDesires.add(createTestDesire(desireThingName, ownerId, isPurchased, false));
+        }
+
+        if (doInsert) {
+            insert testDesires;
+        }
+
+        return testDesires;
+    }
+
 }
