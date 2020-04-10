@@ -4,9 +4,27 @@
  */
 public class TestObjectFactory {
 
+    //  Note to self: Could be worth changing SObjectUtil class to use a Singleton method
     final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
     final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
     final private static SObjectUtil OBJ_UTIL_DESIRE  = new SObjectUtil('Desire__c');
+    final private static SObjectUtil OBJ_UTIL_POKEMON = new SObjectUtil('Pokemon__c');
+    final private static SObjectUtil OBJ_UTIL_TRAINER = new SObjectUtil('Trainer__c');
+
+    /* **************************************************  */
+    /*                    General                          */
+    /* **************************************************  */
+
+    /**
+     * Get total number of existing records of given SObject Type
+     * @param   String. Type of SObject to query
+     * @return  Integer. Number of records for the given SObject Type
+     */
+    public static Integer getSObjectRecordCount(String SObjectType) {
+        String baseQuery = 'SELECT Id FROM ';
+        return (Database.query(baseQuery + SObjectType)).size();
+    }
+
 
     /* **************************************************  */
     /*                    Account                          */
@@ -54,6 +72,7 @@ public class TestObjectFactory {
 
         return testAccounts;
     }
+
 
     /* **************************************************  */
     /*                    Contact                          */
@@ -193,6 +212,7 @@ public class TestObjectFactory {
         return testContacts;
     }
 
+
     /* **************************************************  */
     /*                    Desire__c                        */
     /* **************************************************  */
@@ -266,4 +286,81 @@ public class TestObjectFactory {
         return testDesires;
     }
 
+
+    /* **************************************************  */
+    /*                 Trainer__c                          */
+    /* **************************************************  */
+
+    /**
+     * Creates a new Trainer__c record
+     * @param   String. Name of the trainer
+     * @param   String. The version of the game (Sword, Shield)
+     * @param   Boolean. Whether or not to insert the record after it is created
+     * @return  Trainer__c. A new trainer__c record
+     */
+    public static Trainer__c createSingleTestTrainer(String tName, String tVersion, Boolean doInsert) {
+        Trainer__c newTrainer = new Trainer__c();
+
+        newTrainer.Name = tName;
+        newTrainer.Game_Version__c = tVersion;
+
+        if (doInsert) {
+            insert newTrainer;
+        }
+
+        return newTrainer;
+    }
+
+
+    /* **************************************************  */
+    /*                 Pokemon__c                          */
+    /* **************************************************  */
+
+    /**
+     * Creates a new Pokemon__c record
+     * @param   Integer. The pokedex number for the pokemon
+     * @param   String. The name of the pokemon
+     * @param   String. The elemental types
+     * @param   String. The genders
+     * @param   String. The regions
+     * @param   Boolean. Whether or not to insert after creating the record
+     * @return  Pokemon__c. A new pokemon record
+     */
+    public static Pokemon__c createSingleTestPokemon(Integer pNumber, String pName, String pTypes, String pGenders, String pRegions, Boolean doInsert) {
+        Pokemon__c newPokemon = new Pokemon__c();
+
+        newPokemon.Pokedex_Number__c = pNumber;
+        newPokemon.Name              = pName;
+        newPokemon.Types__c          = pTypes;
+        newPokemon.Gender__c         = pGenders;
+        newPokemon.Region__c         = pRegions;
+
+        if (doInsert) {
+            insert  newPokemon;
+        }
+
+        return newPokemon;
+    }
+
+    /**
+     * Creates multiple test pokemon records. Takes an integer to say how many,
+     * and boolean to decide on whether or not to insert the records
+     * @param   Integer. How many records to create
+     * @param   Boolean. Whether or not to insert the record(s)
+     * @return  List<Pokemon__c>. The test record(s)
+     */
+    public static List<Pokemon__c> createTestPokemon(Integer numberToCreate, Boolean doInsert) {
+        List<Pokemon__c> testPokemon = new List<Pokemon__c>();
+        //  Put together picklist randomisers
+
+        for (Integer pCount = 0; pCount < numberToCreate; pCount++) {
+            //  Create records here
+        }
+
+        if (doInsert) {
+            insert testPokemon;
+        }
+
+        return testPokemon;
+    }
 }

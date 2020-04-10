@@ -4,17 +4,17 @@
  */
 public class PokemonTriggerHandler extends TriggerHandler{
 
-    public override void beforeInsert() {}
-    public override void beforeUpdate() {}
-    public override void beforeDelete() {}
+    // public override void beforeInsert() {}
+    // public override void beforeUpdate() {}
+    // public override void beforeDelete() {}
 
     public override void afterInsert() {
         this.createNewTrainerPokemonLink(Trigger.new);
     }
 
-    public override void afterUpdate() {}
-    public override void afterDelete() {}
-    public override void afterUndelete() {}
+    // public override void afterUpdate() {}
+    // public override void afterDelete() {}
+    // public override void afterUndelete() {}
 
     /**
      * If a new Pokemon is created, make a new Trainer Pokemon record for every trainer
@@ -24,6 +24,7 @@ public class PokemonTriggerHandler extends TriggerHandler{
     private void createNewTrainerPokemonLink(List<Pokemon__c> newPkmn) {
         List<Trainer_Pokemon__c> newLinkRecords = new List<Trainer_Pokemon__c>();
         List<Trainer__c> allTrainers = [SELECT Id FROM Trainer__c];
+        if (allTrainers.isEmpty()) { return; }
 
         for (Pokemon__c pkmn : newPkmn) {
             for (Trainer__c theTrainer : allTrainers) {
