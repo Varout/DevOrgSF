@@ -51,7 +51,10 @@ public with sharing class SObjectUtil {
             throw new SObjectUtilException('An error occurred: ' + e.getMessage());
         }
         if (this.theSObjectDescribe == null) {
-            throw new SObjectUtilException('The SObject: "' + sObjectType + '" does not exist in this org.');
+            String errorString = '';
+            errorString += 'The SObject: "' + sObjectType + '" does not exist in this org. ';
+            errorString += 'If you are using a custom object, remember to add the __c at the end. ';
+            throw new SObjectUtilException(errorString);
         }
 
         try {
@@ -101,12 +104,13 @@ public with sharing class SObjectUtil {
         this.mapRecordTypeNameToId = new Map<String, Id>();
 
         for (RecordType rt : this.queryRecordTypes(theSObjectType)) {
-            this.mapRecordTypeNameToId.put(rt.Name, rt.Id);
+            this.mapRecordTypeNameToId.put(rt.DeveloperName, rt.Id);
         }
     }
 
     /**
      * Uses a SOQL query to get all record types for the given sobject
+     * @param   String. Name of the SObject to query record types for
      * @return  List<RecordType>
      */
     private List<RecordType> queryRecordTypes(String theSObjectType) {
