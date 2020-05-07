@@ -208,4 +208,18 @@ public class TestObjectFactory {
 
         return testContacts;
     }
+
+    /**
+     * IDEA: 
+     * Create a test method that accepts a string of SObject names
+     * Check that all objects exist in the org
+     * Use SObjectUtil to create objects with bare minimum insert criteria i.e. All required fields on the SObject side populated
+     * 
+     * Would this be worth the extra DML?
+     * 1 to check the SObjectType
+     * 3 per SObject
+     *   -) 2 per creation of the SObjectUtil
+     *   -) 1 to insert per SObject
+     */
+
 }

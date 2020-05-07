@@ -14,7 +14,7 @@ public class SingletonObject {
      */
     private SingletonObject() {
         this.iHaveBeenCreated = true;
-        this.initCount = 0;
+        this.initCount = 0;     //  Used to display how many times the Singleton has been instanced.
     }
 
     /**
