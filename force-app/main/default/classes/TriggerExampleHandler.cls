@@ -9,13 +9,13 @@ public with sharing class TriggerExampleHandler extends TriggerHandler{
         exampleBeforeFunction();
         exampleBeforeFunctionParam(Trigger.new);
     }
-    public override void beforeUpdate() {}
-    public override void beforeDelete() {}
+    // public override void beforeUpdate() {}
+    // public override void beforeDelete() {}
 
-    public override void afterInsert() {}
-    public override void afterUpdate() {}
-    public override void afterDelete() {}
-    public override void afterUndelete() {}
+    // public override void afterInsert() {}
+    // public override void afterUpdate() {}
+    // public override void afterDelete() {}
+    // public override void afterUndelete() {}
 
     @TestVisible
     private void exampleBeforeFunction() {
