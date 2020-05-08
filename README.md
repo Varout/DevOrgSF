@@ -11,12 +11,11 @@ Each utility should have its own example of use class and unit test.
 
 Written by: Kevin M. O'Hara.
 
-Copyright: Kevin M. O'Hara. Details in TriggerHandler.cls
+Copyright: Kevin M. O'Hara. Details in TriggerHandler.cls.
 
 Github: https://github.com/kevinohara80/sfdc-trigger-framework
 
-A framework to standardise the use of triggers in Salesforce and more easily
-extract the logic from the trigger class with a tidy framework.
+A framework to standardise the use of triggers in Salesforce and more easily extract the logic from the trigger class with a tidy framework.
 
 The naming convention I generally use is:
 - Trigger: SObjectTrigger.trigger
@@ -32,12 +31,11 @@ The naming convention I generally use is:
 
 ### SObject Utility
 
-Written by: Jasón Auger
+Written by: Jasón Auger.
 
-Copyright: Jasón Auger. Details in SObjectUtil.cls
+Copyright: Jasón Auger. Details in SObjectUtil.cls.
 
-A utility class for Salesforce objects (SObjects). This is meant to make it easier to work
-with fields, picklists, record types.  The class is defined **with sharing**.
+A utility class for Salesforce objects (SObjects). This is meant to make it easier to work with fields, picklists, record types.  The class is defined **with sharing**.
 
 #### Related Files
 - classes/SObjectUtil.cls: Utility class.
@@ -47,46 +45,47 @@ with fields, picklists, record types.  The class is defined **with sharing**.
 - **Initialisation**
 
 | SObject Type             | Example                                                 |
-|--------------------------|:-------------------------------------------------------:|
+|--------------------------|:--------------------------------------------------------|
 | Standard Object: Account | `SObjectUtil accountUtil = new SObjectUtil('Account');` | 
 | Custom Object: Book      | `SObjectUtil bookUtil = new SObjectUtil('Book__c');`    |
 
 - **Available Data**
 
-| Variable Name         | Type                                      | Contents                                                                                                                                                                                       |
-|:----------------------|:-----------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| selectAllString       | `String`                                  | A comma separated string with all fields for the SObject to use in place of an Asterisk (*) when you want to query all fields. e.g. "Id, Name, CreatedDate, CreatedBy, etc"                    |
-| mapRecordTypeNameToId | `Map<String, Id>`                         | If the SObject has record types, this maps the name of a record type to a record type Id.                                                                                                      |
-| mapDevNameToType      | `Map<String, String>`                     | For every field, create a map where the field name is the key, and the value is the type<sup> **1**</sup> of data expected.                                                                    |
-| mapPicklistValues     | `Map<String, List<Schema.PicklistEntry>>` | If there are any picklists or multipicklists for the SObject, this map will have the name of the field as the key, and a list of Schema.PicklistEntry<sup> **2**</sup> records for that field. |
+| Variable Names (e.g. `accountUtil` above) | Type                                      | Contents                                                                                                                                                                                       |
+|:------------------------------------------|:------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `accountUtil.selectAllString`             | `String`                                  | A comma separated string with all fields for the SObject to use in place of an Asterisk (*) when you want to query all fields. e.g. "Id, Name, CreatedDate, CreatedBy, etc".                   |
+| `accountUtil.mapRecordTypeNameToId`       | `Map<String, Id>`                         | If the SObject has record types, this maps the name of a record type to a record type Id.                                                                                                      |
+| `accountUtil.mapDevNameToType`            | `Map<String, String>`                     | For every field, create a map where the field name is the key, and the value is the type<sup> **1**</sup> of data expected.                                                                    |
+| `accountUtil.mapPicklistValues`           | `Map<String, List<Schema.PicklistEntry>>` | If there are any picklists or multipicklists for the SObject, this map will have the name of the field as the key, and a list of Schema.PicklistEntry<sup> **2**</sup> records for that field. |
 
 - **Public Static Functions**
 
 | Function Name                          | Return Type   | What it returns                                                      |
-|:---------------------------------------|:-------------:|:---------------------------------------------------------------------|
+|:---------------------------------------|:--------------|:---------------------------------------------------------------------|
 | `SObjectUtil.getSetOfOrgSObjects();`   | `Set<String>` | Returns a set of SObject names for available SObjects in Salesforce. |
 | `SObjectUtil.orgUsesPersonAccounts();` | `Boolean`     | Returns true if Person Accounts are enabled in this org.             |
 
 
 ### Date Utility
-Used to manipulate Dates
+Used to manipulate Dates.
 
 #### Related Files
 - classes/DateUtil.cls: Utility class.
 - classes/DateUtilTest.cls: Unit test class.
 
 #### Available Functions
-| Function Name             | Return Type | What it returns | 
-|:--------------------------|:-----------:|:----------------|
-| `dateToString(Date)`      | `String`    |  |
-| `getDateTimeOfDate(Date)` | `DateTie`   |  |
-| `monthNameForDate(Date)`  | `String`    |  |
-| `dayNameOfWeek(Date)`     | `String`    |  |
-| `dayNumberOfWeek(Date)`   | `String`    |  |
-| `mondayBefore(Date)`      | `Date`      |  |
-| `sundayBefore(Date)`      | `Date`      |  |
-| `saturdayAfter(Date)`     | `Date`      |  |
-| `fridayAfter(Date)`       | `Date`      |  |
+| Function Name                       | Return Type | What it returns                                                                              |
+|:------------------------------------|:------------|:---------------------------------------------------------------------------------------------|
+| `DateUtil.dateToString(Date);`      | `String`    | For a given Date, convert it to a String with the format: YYYY-MM-DD.                        |
+| `DateUtil.getDateTimeOfDate(Date);` | `DateTine`  | For a given Date, return it as a DateTime at midday the same day.                            |
+| `DateUtil.monthNameForDate(Date);`  | `String`    | For a given Date, return the name of the Month.                                              |
+| `DateUtil.dayNameOfWeek(Date);`     | `String`    | For a given Date, return the name of the day of the week.                                    |
+| `DateUtil.dayNumberOfWeek(Date);`   | `String`    | For a given Date, return the position of the day where 1 = Monday, and 7 = Sunday.           |
+| `DateUtil.mondayBefore(Date);`      | `Date`      | For a given Date, return the Monday before. If the day is a Monday, return the same Date.    |
+| `DateUtil.sundayBefore(Date);`      | `Date`      | For a given Date, return the Sunday before. If the day is a Sunday, return the same Date.    |
+| `DateUtil.saturdayAfter(Date);`     | `Date`      | For a given Date, return the Saturday after. If the day is a Saturday, return the same Date. |
+| `DateUtil.fridayAfter(Date);`       | `Date`      | For a given Date, return the Friday after. If the day is a Friday, return the same Date.     |
+
 
 ### Test Object Factory
 A forever evolving class which contains public static functions which create test data to be used in unit tests. The included file contains some examples for Account and Contact.
@@ -95,7 +94,7 @@ A forever evolving class which contains public static functions which create tes
 - classes/TestObjectFactory.cls: Where we put our functions used to create test data.  Generally should be `public static`.
 
 
-## Notes
+## Additional Notes
 <sup>1</sup> Available field types are:
 
 `'ADDRESS', 'ANYTYPE', 'BASE64', 'BOOLEAN', 'COMBOBOX', 'CURRENCY',
