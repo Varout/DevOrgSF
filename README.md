@@ -95,6 +95,15 @@ A forever evolving class which contains public static functions which create tes
 #### Related Files
 - classes/TestObjectFactory.cls: Where we put our functions used to create test data.  Generally should be `public static`.
 
+### Scheduled Jobs & Batchable Code
+Examples of Scheduled Jobs<sup> **3**</sup> and Batchable Jobs<sup> **4**</sup> have been included here.
+
+#### Related Files
+- classes/BatchExample.cls
+- classes/BatchExampleTest.cls
+- classes/ScheduleExample.cls
+- classes/ScheduleExampleTest.cls
+
 
 ## Additional Notes
 <sup>1</sup> Available field types are:
@@ -105,3 +114,7 @@ A forever evolving class which contains public static functions which create tes
 'PHONE', 'PICKLIST', 'REFERENCE', 'STRING', 'TEXTAREA', 'TIME', 'URL'`
 
 <sup>2</sup> <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_PicklistEntry.htm#apex_class_Schema_PicklistEntry" target="_blank">Salesforce: Schema.PicklistEntry</a>
+
+<sup>3</sup> <a href="https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_scheduled" target="_blank">Salesforce Trailhead: Scheduled Jobs</a>
+
+<sup>4</sup> <a href="https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch" target="_blank">Salesforce Trailhead: Batchable Jobs</a>
