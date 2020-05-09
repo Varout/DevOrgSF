@@ -1,27 +1,29 @@
-/*
-	Copyright (c) 2013 Kevin M. O'Hara
-	Permission is hereby granted, free of charge, to any person
-	obtaining a copy of this software and associated documentation
-	files (the "Software"), to deal in the Software without
-	restriction, including without limitation the rights to use,
-	copy, modify, merge, publish, distribute, sublicense, and/or
-	sell copies of the Software, and to permit persons to whom
-	the Software is furnished to do so, subject to the following
-	conditions:
-	- The above copyright notice and this permission notice shall
-	be included in all copies or substantial portions of the
-	Software.
-	- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
-	KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-	WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
-	OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-	OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-	https://github.com/kevinohara80/sfdc-trigger-framework
-*/
-
+/**
+ * Class:   TriggerHandlerTest.cls
+ * Testing: TriggerHandler.cls
+ * 
+ * Copyright (c) 2013 Kevin M. O'Hara
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following
+ * conditions:
+ * - The above copyright notice and this permission notice shall
+ * be included in all copies or substantial portions of the
+ * Software.
+ * - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+ * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * https://github.com/kevinohara80/sfdc-trigger-framework
+ */
 @isTest
 private class TriggerHandlerTest {
     private static final String TRIGGER_CONTEXT_ERROR = 'Trigger handler called outside of Trigger execution';
@@ -29,12 +31,12 @@ private class TriggerHandlerTest {
     private static TriggerHandlerTest.TestHandler handler;
     static {
         handler = new TriggerHandlerTest.TestHandler();
-        // 	Override its internal trigger detection.
+        //  Override its internal trigger detection.
         handler.isTriggerExecuting = true;
     }
     
-	/***************************************/
-    // 			  Unit Tests			   //
+    /***************************************/
+    /*                Unit Tests           */
     /***************************************/
     // Contexts Tests
     @isTest
@@ -98,33 +100,35 @@ private class TriggerHandlerTest {
         }
     }
 
-    // Test Bypass API
+    /**
+     * Test Bypass API
+     */
     @isTest
     static void testBypassAPI() {
         afterUpdateMode();
 
-        // 	Test a bypass and run handler
+        //  Test a bypass and run handler
         TriggerHandler.bypass('TestHandler');
         handler.run();
         System.assertEquals(null, lastMethodCalled, 'Last method should be null when bypassed');
         System.assertEquals(true, TriggerHandler.isBypassed('TestHandler'), 'Test handler should be bypassed');
         resetTest();
 
-        // 	Clear that bypass and run handler
+        //  Clear that bypass and run handler
         TriggerHandler.clearBypass('TestHandler');
         handler.run();
         System.assertEquals('afterUpdate', lastMethodCalled, 'Last method called should be afterUpdate');
         System.assertEquals(false, TriggerHandler.isBypassed('TestHandler'), 'Test handler should be bypassed');
         resetTest();
 
-        // 	Test a re-bypass and run handler
+        //  Test a re-bypass and run handler
         TriggerHandler.bypass('TestHandler');
         handler.run();
         System.assertEquals(null, lastMethodCalled, 'last method should be null when bypassed');
         System.assertEquals(true, TriggerHandler.isBypassed('TestHandler'), 'Test handler should be bypassed');
         resetTest();
 
-        // 	Clear all bypasses and run handler
+        //  Clear all bypasses and run handler
         TriggerHandler.clearAllBypasses();
         handler.run();
         System.assertEquals('afterUpdate', lastMethodCalled, 'Last method called should be afterUpdate');
@@ -132,34 +136,36 @@ private class TriggerHandlerTest {
         resetTest();
     }
 
-    // 	Instance Method Tests
+    /**
+     * Instance Method Tests
+     */
     @isTest
     static void testLoopCount() {
         beforeInsertMode();
 
-        // 	Set the max loops to 2
+        //  Set the max loops to 2
         handler.setMaxLoopCount(2);
-        // 	Run the handler twice
+        //  Run the handler twice
         handler.run();
         handler.run();
-        // 	Clear the tests
+        //  Clear the tests
         resetTest();
         try {
-        // 	Try running it. This should exceed the limit.
+        //  Try running it. This should exceed the limit.
             handler.run();
             System.assert(false, 'The handler should throw on the 3rd run when maxloopcount is 3');
         } catch(TriggerHandler.TriggerHandlerException te) {
-            // 	We're expecting to get here
+            //  We're expecting to get here
             System.assertEquals(null, lastMethodCalled, 'Last method should be null');
         } catch(Exception e) { 
             System.assert(false, 'The exception thrown was not expected: ' + e.getTypeName() + ': ' + e.getMessage());
         }
-        //	 clear the tests
+        //  Clear the tests
         resetTest();
-        //	 Now clear the loop count
+        //  Now clear the loop count
         handler.clearMaxLoopCount();
-         try {
-            // 	Re-run the handler. We shouldn't throw now.
+        try {
+            //  Re-run the handler. We shouldn't throw now.
             handler.run();
             System.assertEquals('beforeInsert', lastMethodCalled, 'last method should be beforeInsert');
         } catch(TriggerHandler.TriggerHandlerException te) {
@@ -187,13 +193,18 @@ private class TriggerHandlerTest {
         System.assertEquals(6, lc.getCount(), 'count should be 6');
         System.assertEquals(true, lc.exceeded(), 'should not be exceeded with count of 6');
     }
-     // private method tests
-     @isTest
+     
+    /** 
+     * Private method tests
+     */
+    @isTest
     static void testGetHandlerName() {
         System.assertEquals('TestHandler', handler.getHandlerName(), 'handler name should match class name');
     }
-     // test virtual methods
-     
+    
+    /** 
+     * Test virtual methods
+     */
     @isTest
     static void testVirtualMethods() {
         TriggerHandler h = new TriggerHandler();
@@ -207,12 +218,12 @@ private class TriggerHandlerTest {
     }
 
     /****************************************/
-    //		   Testing Utilities			//
+    /*           Testing Utilities          */
     /****************************************/
     private static void resetTest() {
         lastMethodCalled = null;
     }
-    // modes for testing
+    //  Modes for testing
     private static void beforeInsertMode() {
         handler.setTriggerContext('before insert', true);
     }
@@ -234,7 +245,10 @@ private class TriggerHandlerTest {
     private static void afterUndeleteMode() {
         handler.setTriggerContext('after undelete', true);
     }
-    //	 Test implementation of the TriggerHandler
+
+    /**
+     * Test implementation of the TriggerHandler
+     */
     private class TestHandler extends TriggerHandler {
         public override void beforeInsert() {
             TriggerHandlerTest.lastMethodCalled = 'beforeInsert';
@@ -245,7 +259,7 @@ private class TriggerHandlerTest {
         public override void beforeDelete() {
             TriggerHandlerTest.lastMethodCalled = 'beforeDelete';
         }
-    	public override void afterInsert() {
+        public override void afterInsert() {
             TriggerHandlerTest.lastMethodCalled = 'afterInsert';
         }
         public override void afterUpdate() {

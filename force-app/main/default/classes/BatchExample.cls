@@ -5,8 +5,8 @@
  *        https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch
  */
 global class BatchExample implements Database.Batchable<sObject>, Database.Stateful {
-	
-    //	Ability to count records processed across transactions
+
+    //  Ability to count records processed across transactions
     global Integer recordsProcessed = 0;
 
     /**
@@ -16,15 +16,15 @@ global class BatchExample implements Database.Batchable<sObject>, Database.State
         String databaseQuery = '';
         return Database.getQueryLocator( databaseQuery );
     }
-    
+
     /**
      * Logic goes here
      */
     global void execute(Database.BatchableContext bc, List<Account> scope){
-        //	Do stuff
+        //  Do stuff
         recordsProcessed += 1;
     }
-    
+
     /**
      * Reporting goes here. E.g. Sending emails, create new records to report on batch
      */
