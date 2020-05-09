@@ -94,6 +94,10 @@ public class DateUtil {
     public static Date fridayAfter(Date theDate) {
         Date sunday = DateUtil.sundayBefore(theDate);
         Date friday = sunday.addDays(DAYS_FROM_SUN_TO_FRI);
+        //  At times the Friday is the Friday before because of how DateUtil.sundayBefore() is calculated
+        if (friday < theDate) {
+            friday = friday.addDays(7);
+        }
         return friday;
     }
 
