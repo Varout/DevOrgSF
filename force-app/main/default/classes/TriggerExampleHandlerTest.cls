@@ -1,8 +1,12 @@
+/**
+ * Class:   TriggerExampleHandlerTest.cls
+ * Testing: TriggerExampleHandler.cls
+ */
 @isTest
 private class TriggerExampleHandlerTest {
 
     @TestSetup
-    static void makeData(){
+    static void makeData() {
         //  Put setup data here
     }
 
