@@ -40,4 +40,25 @@ global class ScheduleExample implements Schedulable{
         AsyncApexJob job = [SELECT Id, Status, JobItemsProcessed, TotalJobItems, NumberOfErrors FROM AsyncApexJob WHERE ID = :batchId];
     }
 
+/*
+    Useful SOQL Queries
+
+    Use CronJobDetail relationship to get the job’s name and type.
+    SELECT Id, CronJobDetail.Id, CronJobDetail.Name, CronJobDetail.JobType FROM CronTrigger ORDER BY CreatedDate ASC LIMIT 10
+
+    You can also query CronJobDetail directly to get the job’s name and type.
+    SELECT Id, Name, JobType FROM CronJobDetail WHERE Id = 'someId'
+
+    To get total count of all Apex scheduled jobs (except other scheduled job types), run the following query.
+    SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.JobType = '7'
+
+    Data Export (0)
+    Dashboard Refresh (3)
+    Analytic Snapshot (4)
+    Scheduled Apex (7)
+    Report Run (8)
+    Batch Job (9)
+
+ */
+
 }
