@@ -6,15 +6,15 @@
     </types>
     <types>
         <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>ApexPage</name>
     </types>
     <types>
         <members>*</members>
         <name>ApexTrigger</name>
+    </types> <!--
+    <types>
+        <members>*</members>
+        <name>ApexComponent</name>
     </types>
     <types>
         <members>*</members>
@@ -72,6 +72,6 @@
         <members>Opportunity</members>
         <members>OpportunityLineItem</members>
         <name>CustomObject</name>
-    </types>
+    </types> -->
     <version>48.0</version>
 </Package>

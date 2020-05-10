@@ -7,9 +7,6 @@ public class TestObjectFactory {
     //  Note to self: Could be worth changing SObjectUtil class to use a Singleton method
     final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
     final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
-    final private static SObjectUtil OBJ_UTIL_DESIRE  = new SObjectUtil('Desire__c');
-    final private static SObjectUtil OBJ_UTIL_POKEMON = new SObjectUtil('Pokemon__c');
-    final private static SObjectUtil OBJ_UTIL_TRAINER = new SObjectUtil('Trainer__c');
 
     /* **************************************************  */
     /*                    General                          */
@@ -212,155 +209,17 @@ public class TestObjectFactory {
         return testContacts;
     }
 
-
-    /* **************************************************  */
-    /*                    Desire__c                        */
-    /* **************************************************  */
-
     /**
-     * Creates a Desire__c record for testing
-     * @param   String. Name of the desire, stored in the field: 'Thing__c'
-     * @param   Id. Id of the user who will be the owner of the record. Can be set to null
-     * @param   Boolean. Whether or not to insert the test record
-     * @return  Desire__c. The test Desire__c record
+     * IDEA: 
+     * Create a test method that accepts a string of SObject names
+     * Check that all objects exist in the org
+     * Use SObjectUtil to create objects with bare minimum insert criteria i.e. All required fields on the SObject side populated
+     * 
+     * Would this be worth the extra DML?
+     * 1 to check the SObjectType
+     * 3 per SObject
+     *   -) 2 per creation of the SObjectUtil
+     *   -) 1 to insert per SObject
      */
-    public static Desire__c createTestDesire(String nameOfDesire, Id ownerId, Boolean isPurchased, Boolean doInsert) {
-        Desire__c testDesire = new Desire__c();
 
-        if (ownerId != null) {
-            testDesire.OwnerId = ownerId;
-        }
-
-        testDesire.Thing__c = nameOfDesire;
-        testDesire.Reason__c = 'Lorem Ipsum';
-        testDesire.Status__c = 'Wanted';
-        testDesire.Research_Notes__c = '';
-        testDesire.Type__c = 'Game';    //  Pick random
-        testDesire.Platform__c = 'PC - Steam';  //  Pick random if Type__c = 'Game'
-        
-        Date asOfDate = Date.newInstance(2020, 12, 01);
-        testDesire.As_Of_Date__c = asOfDate;
-        testDesire.As_Of_Price__c = 100.00;
-        testDesire.As_Of_Store__c = 'Just another brick in the store';
-        testDesire.As_Of_URL__c = '';
-
-        if (isPurchased) {
-            Integer purchasedDaysAfter = 5;
-            Date purchaseDate = asOfDate.addDays(purchasedDaysAfter);
-            Decimal percentageOfAsOfPrice = 1.00;
-
-            testDesire.Purchased_Date__c  = purchaseDate;
-            testDesire.Purchased_Price__c = percentageOfAsOfPrice;
-            testDesire.Purchased_Store__c = testDesire.As_Of_Store__c;
-            testDesire.Purchased_Notes__c = 'I don\'t know if I got a good deal or not.';
-        }
-
-        if (doInsert) {
-            insert testDesire;
-        }
-
-        return testDesire;
-    }
-
-    /**
-     * Creates N amount of Desire__c records for testing and assign them all to the same user
-     * @param   Integer. The number of test Desire__c records to create
-     * @param   Id. The Id of the user to assign as the owner to all test records
-     * @param   Boolean. Whether or not to insert the test records
-     * @return  List<Desire__c>. List of test Desire__c records
-     */
-    public static List<Desire__c> createNTestDesires(Integer numberToCreate, Id ownerId, Boolean doInsert) {
-        List<Desire__c> testDesires = new List<Desire__c>();
-
-        for (Integer dCount = 0; dCount < numberToCreate; dCount++) {
-            String desireThingName = 'Test Thing #' + String.valueOf(dCount + 1);
-            Boolean isPurchased = (Math.random() > 0.5);
-
-            testDesires.add(createTestDesire(desireThingName, ownerId, isPurchased, false));
-        }
-
-        if (doInsert) {
-            insert testDesires;
-        }
-
-        return testDesires;
-    }
-
-
-    /* **************************************************  */
-    /*                 Trainer__c                          */
-    /* **************************************************  */
-
-    /**
-     * Creates a new Trainer__c record
-     * @param   String. Name of the trainer
-     * @param   String. The version of the game (Sword, Shield)
-     * @param   Boolean. Whether or not to insert the record after it is created
-     * @return  Trainer__c. A new trainer__c record
-     */
-    public static Trainer__c createSingleTestTrainer(String tName, String tVersion, Boolean doInsert) {
-        Trainer__c newTrainer = new Trainer__c();
-
-        newTrainer.Name = tName;
-        newTrainer.Game_Version__c = tVersion;
-
-        if (doInsert) {
-            insert newTrainer;
-        }
-
-        return newTrainer;
-    }
-
-
-    /* **************************************************  */
-    /*                 Pokemon__c                          */
-    /* **************************************************  */
-
-    /**
-     * Creates a new Pokemon__c record
-     * @param   Integer. The pokedex number for the pokemon
-     * @param   String. The name of the pokemon
-     * @param   String. The elemental types
-     * @param   String. The genders
-     * @param   String. The regions
-     * @param   Boolean. Whether or not to insert after creating the record
-     * @return  Pokemon__c. A new pokemon record
-     */
-    public static Pokemon__c createSingleTestPokemon(Integer pNumber, String pName, String pTypes, String pGenders, String pRegions, Boolean doInsert) {
-        Pokemon__c newPokemon = new Pokemon__c();
-
-        newPokemon.Pokedex_Number__c = pNumber;
-        newPokemon.Name              = pName;
-        newPokemon.Types__c          = pTypes;
-        newPokemon.Gender__c         = pGenders;
-        newPokemon.Region__c         = pRegions;
-
-        if (doInsert) {
-            insert  newPokemon;
-        }
-
-        return newPokemon;
-    }
-
-    /**
-     * Creates multiple test pokemon records. Takes an integer to say how many,
-     * and boolean to decide on whether or not to insert the records
-     * @param   Integer. How many records to create
-     * @param   Boolean. Whether or not to insert the record(s)
-     * @return  List<Pokemon__c>. The test record(s)
-     */
-    public static List<Pokemon__c> createTestPokemon(Integer numberToCreate, Boolean doInsert) {
-        List<Pokemon__c> testPokemon = new List<Pokemon__c>();
-        //  Put together picklist randomisers
-
-        for (Integer pCount = 0; pCount < numberToCreate; pCount++) {
-            //  Create records here
-        }
-
-        if (doInsert) {
-            insert testPokemon;
-        }
-
-        return testPokemon;
-    }
 }
