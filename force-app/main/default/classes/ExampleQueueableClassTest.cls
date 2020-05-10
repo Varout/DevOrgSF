@@ -20,8 +20,8 @@ private class ExampleQueueableClassTest {
     @isTest
     static void testQueueable() {
         // query for test data to pass to queueable class
-        Id parentId = [select id from account where name = 'Parent'][0].Id;
-        List<Account> accounts = [select id, name from account where name like 'Test Account%'];
+        Id parentId = [SELECT Id FROM Account WHERE Name = 'Parent'][0].Id;
+        List<Account> accounts = [SELECT Id, Name FROM Account WHERE Name LIKE 'Test Account%'];
         // Create our Queueable instance
         ExampleQueueableClass updater = new ExampleQueueableClass(accounts, parentId);
         // startTest/stopTest block to force async processes to run
