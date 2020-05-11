@@ -24,7 +24,6 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * https://github.com/kevinohara80/sfdc-trigger-framework
  */
-
 public virtual class TriggerHandler {
     //  Static map of handlername, times run() was invoked
     private static Map<String, LoopCount> loopCountMap;
@@ -238,4 +237,4 @@ public virtual class TriggerHandler {
     
     // Exception class
     public class TriggerHandlerException extends Exception {}
- }
+}

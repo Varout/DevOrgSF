@@ -1,10 +1,11 @@
 /**
- * This TriggerHandler is to serve as an example
- * Internal functions can be public or private.  Prefer to keep as private and
- * make them @TestVisible
+ * Class: ExampleTriggerHandler.cls
+ * Test:  ExampleTriggerHandlerTest.cls
+ * @desc: This TriggerHandler is to serve as an example
+ *        Internal functions can be public or private.  Prefer to keep as private and
+ *        make them @TestVisible
  */
-public with sharing class TriggerExampleHandler extends TriggerHandler{
-
+public class ExampleTriggerHandler extends TriggerHandler{
     public override void beforeInsert() {
         exampleBeforeFunction();
         exampleBeforeFunctionParam(Trigger.new);
@@ -35,5 +36,4 @@ public with sharing class TriggerExampleHandler extends TriggerHandler{
     private void exampleBeforeFunctionParam(List<Account> triggerAccounts) {
         //  Do this with passed information
     }
-
 }

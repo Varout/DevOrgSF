@@ -1,11 +1,11 @@
 /**
- * Class: ScheduleExample.cls
- * Test:  ScheduleEampleTest.cls
+ * Class: ExampleScheduledJob.cls
+ * Test:  ExampleScheduledJobTest.cls
  * @desc: An example of a scheduled job. Salesforce documentation can be found at:
  *        https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_scheduled
+ *        Includes an example of how to run a Batchable Job from a Scheduled Job
  */
-global class ScheduleExample implements Schedulable{
-
+global class ExampleScheduledJob implements Schedulable {
     // Seconds Minutes Hours Day_of_month Month Day_of_week optional_year
     public static String JOB_CRON = '0 0 12 ? * WED *';     //  Run every Wednesday at 12:00
     public static String JOB_NAME = 'Schedule Job Example';
@@ -19,11 +19,12 @@ global class ScheduleExample implements Schedulable{
         if (Test.isRunningTest()) {
             JOB_NAME += ' Test';
         }
-        String jobID = System.schedule(JOB_NAME, JOB_CRON, new ScheduleExample());
+        String jobID = System.schedule(JOB_NAME, JOB_CRON, new ExampleScheduledJob());
     }
 
     /**
      * Do this when running the scheduled job
+     * Tidier to reference a logic or utility class
      */
     // global void execute(SchedulableContext sc) {
     //     System.debug('Hello world');
@@ -33,7 +34,7 @@ global class ScheduleExample implements Schedulable{
      * Example of running Batchable code
      */
     global void execute(SchedulableContext sc) {
-        BatchExample batchEx = new BatchExample();
+        ExampleBatchJob batchEx = new ExampleBatchJob();
         // Id batchId = Database.executeBatch(batchEx);
         Id batchId = Database.executeBatch(batchEx, 100);
 
@@ -58,7 +59,5 @@ global class ScheduleExample implements Schedulable{
     Scheduled Apex (7)
     Report Run (8)
     Batch Job (9)
-
  */
-
 }

@@ -1,12 +1,11 @@
 /**
- * Class:   ScheduleExampleTest.cls
- * Testing: ScheduleExample.cls
+ * Class:   ExampleScheduledJobTest.cls
+ * Testing: ExampleScheduledJob.cls
  * @desc:   Work in progress
  */
 @isTest
-private class ScheduleExampleTest {
-
-    @TestSetup
+private class ExampleScheduledJobTest {
+    @testSetup
     static void makeData() {
         
     }
@@ -15,5 +14,4 @@ private class ScheduleExampleTest {
     static void test_one() {
 
     }
-
 }

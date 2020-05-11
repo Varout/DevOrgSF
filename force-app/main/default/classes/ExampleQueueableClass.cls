@@ -1,5 +1,7 @@
 /**
- * Logic for queueable
+ * Class: ExampleQueueableClass.cls
+ * Test:  ExampleQueueableClassTest.cls
+ * @desc: Logic for queueable. How to run example code in: ExampleQueueableClassRun.cls
  */
 public class ExampleQueueableClass implements Queueable{
 

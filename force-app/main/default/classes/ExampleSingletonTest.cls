@@ -1,20 +1,19 @@
 /**
- * Class: SingletonObjectTest.cls
- * Test for: SingletoneObject.cls
- * @desc: Testing setup and function call for SingletonObject class
+ * Class:   ExampleSingletonTest.cls
+ * Testing: ExampleSingleton.cls
+ * @desc:   Testing setup and function call for SingletonObject class
  */
 @isTest
-private class SingletonObjectTest {
-
+private class ExampleSingletonTest {
     /**
      * Test creating singleton object instance
      */
     @isTest
     static void createSingleInstance() {
-        SingletonObject theObject = null;
+        ExampleSingleton theObject = null;
         Boolean isSuccess = false;
         try {
-            theObject = SingletonObject.getIntance();
+            theObject = ExampleSingleton.getIntance();
             isSuccess = true;
         } catch (Exception e) {
             isSuccess = false;
@@ -34,10 +33,10 @@ private class SingletonObjectTest {
     @isTest
     static void createSecondInstance() {
         //  Initial setup
-        SingletonObject theObject = null;
+        ExampleSingleton theObject = null;
         Boolean isSuccess = false;
         try {
-            theObject = SingletonObject.getIntance();
+            theObject = ExampleSingleton.getIntance();
             // theObject.initCount += 1;
 
         } catch (Exception e) {
@@ -46,7 +45,7 @@ private class SingletonObjectTest {
 
         //  Try reate another instance of it
         try {
-            theObject = SingletonObject.getIntance();
+            theObject = ExampleSingleton.getIntance();
             isSuccess = true;
         } catch (Exception e) {
             isSuccess = false;
@@ -61,10 +60,10 @@ private class SingletonObjectTest {
 
     @isTest
     static void testDemoFunction() {
-        SingletonObject theObject = null;
+        ExampleSingleton theObject = null;
         Boolean isSuccess = false;
         try {
-            theObject = SingletonObject.getIntance();
+            theObject = ExampleSingleton.getIntance();
             isSuccess = true;
         } catch (Exception e) {
             isSuccess = false;

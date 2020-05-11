@@ -1,10 +1,10 @@
 /**
- * Class:   EmailManagerTest.cls
- * Testing: EmailManager.cls
+ * Class:   ExampleBatchJobTest.cls
+ * Testing: ExampleBatchJob.cls
  * @desc:   Work in progress
  */
 @isTest
-private class EmailManagerTest {
+private class ExampleBatchJobTest {
     @testSetup
     static void makeData() {
         

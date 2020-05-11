@@ -1,11 +1,10 @@
 /**
- * Class:   TriggerExampleHandlerTest.cls
- * Testing: TriggerExampleHandler.cls
+ * Class:   ExampleTriggerHandlerTest.cls
+ * Testing: ExampleTriggerHandler.cls
  */
 @isTest
-private class TriggerExampleHandlerTest {
-
-    @TestSetup
+private class ExampleTriggerHandlerTest {
+    @testSetup
     static void makeData() {
         //  Put setup data here
     }
@@ -29,5 +28,4 @@ private class TriggerExampleHandlerTest {
         TriggerExampleHandler theTriggerHandler = new TriggerExampleHandler();
         theTriggerHandler.exampleBeforeFunctionParam(theAccounts);
     }
-
 }

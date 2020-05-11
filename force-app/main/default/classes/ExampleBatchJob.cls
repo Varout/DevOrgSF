@@ -1,11 +1,10 @@
 /**
- * Class: BatchExample.cls
- * Test:  BatchExampleTest.cls
+ * Class: ExampleBatchJob.cls
+ * Test:  ExampleBatchJobTest.cls
  * @desc: Example class to show how Batchable works. Salesforce documentation can be found at:
  *        https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch
  */
-global class BatchExample implements Database.Batchable<sObject>, Database.Stateful {
-
+global class ExampleBatchJob implements Database.Batchable<sObject>, Database.Stateful {
     //  Ability to count records processed across transactions
     global Integer recordsProcessed = 0;
 
