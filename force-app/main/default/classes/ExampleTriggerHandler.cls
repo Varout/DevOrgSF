@@ -20,12 +20,14 @@ public class ExampleTriggerHandler extends TriggerHandler{
 
     @TestVisible
     private void exampleBeforeFunction() {
+        System.debug('BeforeTrigger: Logic');
         List<Account> triggerAccountsNew = (List<Account>) Trigger.new;
         Map<Id, Account> triggerAccountsNewMap = (Map<Id, Account>) Trigger.newMap;
     }
 
     @TestVisible
     private void exampleAfterFunction() {
+        System.debug('AfterTrigger: Logic');
         List<Account> triggerAccountsNew = (List<Account>) Trigger.new;
         List<Account> triggerAccountsOld = (List<Account>) Trigger.old;
         Map<Id, Account> triggerAccountsNewMap = (Map<Id, Account>) Trigger.newMap;
