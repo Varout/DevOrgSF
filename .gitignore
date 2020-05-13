@@ -8,6 +8,10 @@
 # VS Code cache
 .vscode/
 
+# Local Dev Server for local Lightning development
+# https://developer.salesforce.com/blogs/2019/10/announcing-lwc-local-development-beta.html
+.localdevserver/
+
 # Logs
 logs
 *.log
