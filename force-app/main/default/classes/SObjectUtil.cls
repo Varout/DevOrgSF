@@ -25,6 +25,7 @@
  *           SOFTWARE.
  */
 public with sharing class SObjectUtil {
+
     public class SObjectUtilException extends Exception{}
 
     final private Set<String> ENUM_PICKLISTS = new Set<String>{'PICKLIST', 'MULTIPICKLIST'};
@@ -37,12 +38,13 @@ public with sharing class SObjectUtil {
     };
 
     private SObjectType theSObjectDescribe { get; private set; }
-
     public String selectAllString { get; private set; }
-    public Map<String, Id>     mapRecordTypeNameToId { get; private set; }
+    public Set<String> requiredFields{ get; private set; }
+    public Map<String, Id> mapRecordTypeNameToId { get; private set; }
     public Map<String, String> mapDevNameToType { get; private set; }
     //  Schema.PicklistEntry function information: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_PicklistEntry.htm#apex_class_Schema_PicklistEntry
     public Map<String, List<Schema.PicklistEntry>> mapPicklistValues { get; private set; }
+
 
     public SObjectUtil(String sObjectType) {
         try {
@@ -65,6 +67,7 @@ public with sharing class SObjectUtil {
         }
     }
 
+
     /*  ****************************************  */
     /*             Private Functions              */
     /*  ****************************************  */
@@ -75,6 +78,7 @@ public with sharing class SObjectUtil {
      *          name and type inforation for.
      */
     private void populateMapFieldInformation(String theSObjectType) {
+        this.requiredFields = new Set<String>();
         this.mapDevNameToType = new Map<String, String>();
         this.mapPicklistValues = new Map<String, List<Schema.PicklistEntry>>();
         Map<String, Schema.SObjectField> mapAccFields = this.theSObjectDescribe.getDescribe().fields.getMap();
@@ -85,6 +89,11 @@ public with sharing class SObjectUtil {
             String fieldType = String.valueOf(mapAccFields.get(fieldKey).getDescribe().getType());
             this.mapDevNameToType.put(fieldName, fieldType);
 
+            //  Populates set of required fields on the SObject level
+            if (!mapAccFields.get(fieldKey).getDescribe().isNillable()) {
+                requiredFields.add(mapAccFields.get(fieldKey).getDescribe().getName());
+            }
+
             //  Populate map of FieldName to PicklistValues for any picklist field type
             if (this.ENUM_PICKLISTS.contains(fieldType.toUpperCase())) {
                 this.mapPicklistValues.put(fieldName, mapAccFields.get(fieldKey).getDescribe().getPicklistValues());
@@ -94,6 +103,7 @@ public with sharing class SObjectUtil {
         //  Populate select all string used for a wildcard SOQL selector query
         this.selectAllString = String.join(new List<String>(this.mapDevNameToType.keySet()), ', ');
     }
+
 
     /**
      * Populates the public variable in the class: mapRecordTypeNameToId
@@ -108,6 +118,7 @@ public with sharing class SObjectUtil {
         }
     }
 
+
     /**
      * Uses a SOQL query to get all record types for the given sobject
      * @param   String. Name of the SObject to query record types for
@@ -120,6 +131,7 @@ public with sharing class SObjectUtil {
             WHERE SObjectType = :theSObjectType
         ];
     }
+
 
     /*  ****************************************  */
     /*          Public Static Functions           */
@@ -138,6 +150,7 @@ public with sharing class SObjectUtil {
         return sObjects;
     }
 
+
     /**
      * Checks to see if Person Accounts are enabled in the current org
      * @return  Boolean. Returns true if the current org uses Person Accounts
@@ -145,4 +158,5 @@ public with sharing class SObjectUtil {
     public static Boolean orgUsesPersonAccounts() {
         return Schema.SObjectType.Account.fields.getMap().containsKey('isPersonAccount');
     }
+
 }
