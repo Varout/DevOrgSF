@@ -38,12 +38,12 @@ public with sharing class SObjectUtil {
     };
 
     private SObjectType theSObjectDescribe { get; private set; }
-    public String selectAllString { get; private set; }
-    public Set<String> requiredFields{ get; private set; }
-    public Map<String, Id> mapRecordTypeNameToId { get; private set; }
-    public Map<String, String> mapDevNameToType { get; private set; }
+    public String selectAllString { get; private set; }                 //  A comma separated string of all fields on the SObject. Intended to act as * for SOQL queries
+    public Set<String> requiredFields{ get; private set; }              //  The DeveloperNames of required fields on the SObject level
+    public Map<String, Id> mapRecordTypeNameToId { get; private set; }  //  Maps the DeveloperName of a record type to its Id
+    public Map<String, String> mapDevNameToType { get; private set; }   //  Maps the DeveloperName of a field to its field type (See: ENUM_FIELD_TYPES)
     //  Schema.PicklistEntry function information: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Schema_PicklistEntry.htm#apex_class_Schema_PicklistEntry
-    public Map<String, List<Schema.PicklistEntry>> mapPicklistValues { get; private set; }
+    public Map<String, List<Schema.PicklistEntry>> mapPicklistValues { get; private set; }  //  Maps the DeveloperName of a picklist or multipicklist to its PicklistEntry vales
 
 
     public SObjectUtil(String sObjectType) {
@@ -73,7 +73,9 @@ public with sharing class SObjectUtil {
     /*  ****************************************  */
 
     /**
-     * Populates the public variable in the class: mapDevNameToType
+     * Populates the public variables: 
+     * - mapDevNameToType
+     * - requiredFields
      * @param   String. API Name of the SObject to populate field
      *          name and type inforation for.
      */
