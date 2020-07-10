@@ -1,3 +1,17 @@
 <template>
-    
+    <div id="picklist" class="slds-form-element">
+        <lightning-combobox
+            name="sobjOption"
+            label="SObject To Query"
+            value={sobjectSelection}
+            placeholder="Select SObject"
+            options={sObjOptions}
+            onchange={handleSObjPicklistChange} >
+        </lightning-combobox>
+
+        <p>Selected value is: {sobjectSelection}</p>
+    </div>
+    <div id="textfield" class="slds-form-element">
+        <lightning-input type="text" label="SObject Name" class="slds-p-around_medium lgc-bg" onchange={handleSObjTextChange} ></lightning-input>
+    </div>
 </template>
