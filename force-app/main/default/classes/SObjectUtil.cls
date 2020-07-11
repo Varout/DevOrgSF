@@ -209,15 +209,15 @@ public with sharing class SObjectUtil {
         for (Schema.RecordTypeInfo rti : sObjectResult.getRecordTypeInfos()) {
             //  Default record type for the user running the code
             if (rti.isDefaultRecordTypeMapping()) {
-                recordTypeIdDefault = rti.getRecordTypeId();
+                this.recordTypeIdDefault = rti.getRecordTypeId();
             }
             //  Default record type for the SObject. Used as a fall back
             if (rti.isMaster()) {
-                recordTypeIdMaster = rti.getRecordTypeId();
+                this.recordTypeIdMaster = rti.getRecordTypeId();
             }
             //  Populate the map for DeveloperName to RecordTypeId
             if (rti.getDeveloperName() != 'Master') {   //  Don't need as this isn't returned when using SOQL
-                mapRecordTypeNameToId.put(rti.getDeveloperName(), rti.getRecordTypeId());
+                this.mapRecordTypeNameToId.put(rti.getDeveloperName(), rti.getRecordTypeId());
             }
         }
     }
@@ -268,6 +268,21 @@ public with sharing class SObjectUtil {
         Set<String> setSObjectNames = new Set<String>();
         setSObjectNames.addAll(sObjectNames);
         return this.createQueryStringForRelatedSObjects(setSObjectNames);
+    }
+
+
+    /**
+     * Returns the default record type Id for the user. If none is found,
+     * returns the Master record type Id. Returns null if both aren't populated
+     * @return  Id. The record type Id
+     */
+    public Id getDefaultRecordTypeId() {
+        if (this.recordTypeIdDefault != null) {
+            return this.recordTypeIdDefault;
+        } else if (this.recordTypeIdMaster != null) {
+            return this.recordTypeIdMaster;
+        }
+        return null;
     }
 
 
