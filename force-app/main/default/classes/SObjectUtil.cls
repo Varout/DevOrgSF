@@ -282,6 +282,7 @@ public with sharing class SObjectUtil {
         } else if (this.recordTypeIdMaster != null) {
             return this.recordTypeIdMaster;
         }
+        //  I don't really expect this to ever happen, just a catch-all
         return null;
     }
 

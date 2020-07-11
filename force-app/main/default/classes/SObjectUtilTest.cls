@@ -357,6 +357,24 @@ private class SObjectUtilTest {
     }
 
 
+    /**
+     * Tests to make sure the correct record type Id fields are being populated
+     */
+    @isTest
+    static void testGetDefaultRecordTypeId() {
+        SObjectUtil accountUtil = new SObjectUtil('Account');
+        SObjectUtil contactUtil = new SObjectUtil('Contact');
+
+        System.assertNotEquals(null, accountUtil.getDefaultRecordTypeId());
+        System.assertNotEquals(null, accountUtil.recordTypeIdDefault);
+        System.assertNotEquals(null, accountUtil.recordTypeIdMaster);
+
+        System.assertNotEquals(null, contactUtil.getDefaultRecordTypeId());
+        System.assertNotEquals(null, contactUtil.recordTypeIdDefault);
+        System.assertNotEquals(null, contactUtil.recordTypeIdMaster);
+    }
+
+
     /*  ****************************************  */
     /*             Private Functions              */
     /*  ****************************************  */
