@@ -313,6 +313,28 @@ private class SObjectUtilTest {
         System.assertEquals(expectedRequiredFields, countedExistingFields);
     }
 
+
+    /**
+     * Tests the query string for lookup fields on a standard SObject
+     */
+    @isTest
+    static void testLookupQueryStringPopulate() {
+        //  Setup
+        SObjectUtil contractUtil = new SObjectUtil('Contract');
+        String sObjectNameFail = 'Account';
+        String sObjectNamePass = 'AccountId';
+
+        //  Test
+        String returnStringFail = contractUtil.createQueryStringForRelatedSObject(sObjectNameFail);
+        String returnStringPass = contractUtil.createQueryStringForRelatedSObject(sObjectnamePass);
+
+        //  Assert
+        System.assertEquals('', returnStringFail);
+        System.assert(returnStringPass.length() > 0);
+        System.assert(returnStringPass.contains(sObjectNamePass.removeEndIgnoreCase('Id')));
+    }
+
+
     /**
      * This is a hard one to successfully test as it depends on whether or not the object
      * in the org has any fields that are marked as unique
@@ -332,6 +354,24 @@ private class SObjectUtilTest {
 
         System.assertNotEquals(null, accountUtil.fieldsUnique);
         System.assertEquals(expectedUniqueFields, countedExistingFields);
+    }
+
+
+    /**
+     * Tests to make sure the correct record type Id fields are being populated
+     */
+    @isTest
+    static void testGetDefaultRecordTypeId() {
+        SObjectUtil accountUtil = new SObjectUtil('Account');
+        SObjectUtil contactUtil = new SObjectUtil('Contact');
+
+        System.assertNotEquals(null, accountUtil.getDefaultRecordTypeId());
+        System.assertNotEquals(null, accountUtil.recordTypeIdDefault);
+        System.assertNotEquals(null, accountUtil.recordTypeIdMaster);
+
+        System.assertNotEquals(null, contactUtil.getDefaultRecordTypeId());
+        System.assertNotEquals(null, contactUtil.recordTypeIdDefault);
+        System.assertNotEquals(null, contactUtil.recordTypeIdMaster);
     }
 
 
