@@ -1,27 +1,29 @@
-/*
-    Copyright (c) 2013 Kevin M. O'Hara
-    Permission is hereby granted, free of charge, to any person
-    obtaining a copy of this software and associated documentation
-    files (the "Software"), to deal in the Software without
-    restriction, including without limitation the rights to use,
-    copy, modify, merge, publish, distribute, sublicense, and/or
-    sell copies of the Software, and to permit persons to whom
-    the Software is furnished to do so, subject to the following
-    conditions:
-    - The above copyright notice and this permission notice shall
-    be included in all copies or substantial portions of the
-    Software.
-    - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
-    KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-    WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
-    OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-    OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-    OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-     https://github.com/kevinohara80/sfdc-trigger-framework
-*/
-
+/**
+ * Class: TriggerHandler.cls
+ * Test:  TriggerHandlerTest.cls
+ * 
+ * Copyright (c) 2013 Kevin M. O'Hara
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following
+ * conditions:
+ * - The above copyright notice and this permission notice shall
+ * be included in all copies or substantial portions of the
+ * Software.
+ * - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+ * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * https://github.com/kevinohara80/sfdc-trigger-framework
+ */
 public virtual class TriggerHandler {
     //  Static map of handlername, times run() was invoked
     private static Map<String, LoopCount> loopCountMap;
@@ -44,9 +46,9 @@ public virtual class TriggerHandler {
     }
 
     /**************************************/
-    //        Public Instance Methods     //
+    /*        Public Instance Methods     */
     /**************************************/
-    // main method that will be called during execution
+    // Main method that will be called during execution
     public void run() {
         if(!validateRun()) return;
         addToLoopCount();
@@ -82,7 +84,7 @@ public virtual class TriggerHandler {
     }
     
     /***************************************/
-    //          Public Static Methods      //
+    /*          Public Static Methods      */
     /***************************************/
     public static void bypass(String handlerName) {
         TriggerHandler.bypassedHandlers.add(handlerName);
@@ -98,7 +100,7 @@ public virtual class TriggerHandler {
     }
     
     /**************************************/
-    //          Private Instancemethods   //
+    /*          Private Instancemethods   */
     /**************************************/
     @TestVisible
     private void setTriggerContext() {
@@ -169,7 +171,7 @@ public virtual class TriggerHandler {
     }
 
     /**************************************/
-    //             Context Methods        //
+    /*             Context Methods        */
     /**************************************/
     //  Context-specific methods for override
     @TestVisible
@@ -188,7 +190,7 @@ public virtual class TriggerHandler {
     protected virtual void afterUndelete(){}
 
     /**************************************/
-    //            Inner Classes           //
+    /*            Inner Classes           */
     /**************************************/
     //  Inner class for managing the loop count per handler
     @TestVisible
@@ -235,4 +237,4 @@ public virtual class TriggerHandler {
     
     // Exception class
     public class TriggerHandlerException extends Exception {}
- }
+}

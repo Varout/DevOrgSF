@@ -1,3 +1,0 @@
-<apex:page showHeader="false" sidebar="false">
-    <apex:image alt="Something went wrong" url="https://developer.salesforce.com/files/salesforce-developer-network-logo.png" />
-</apex:page>
