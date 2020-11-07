@@ -40,6 +40,8 @@ public with sharing class SObjectUtil {
     public Map<String, Set<String>> evilObjectFieldNames = new Map<String, Set<String>>();
 
     private SObjectType theSObjectDescribe { get; private set; }
+    public Id recordTypeIdDefault { get; private set; }
+    public Id recordTypeIdMaster { get; private set; }
     public Set<String> setLookupDevNames { get; set; }
     public String selectAllString { get; private set; }                 //  A comma separated string of all fields on the SObject. Intended to act as * for SOQL queries
     public Set<String> fieldsRequired { get; private set; }             //  The DeveloperNames of required fields on the SObject level
@@ -58,7 +60,7 @@ public with sharing class SObjectUtil {
         //  Some standard SObjects don't like certain fields to be queried
         //  Will likely be added to over time. Is public in case fields are found
         //  with an object and they can be added to the filter here
-        evilObjectFieldNames.put('Contract', new Set<String>{
+        this.evilObjectFieldNames.put('Contract', new Set<String>{
             'ShippingStreet', 'ShippingCity', 'ShippingState', 'ShippingPostalCode', 'ShippingCountry', 'ShippingLatitude', 
             'ShippingLongitude', 'ShippingGeocodeAccuracy', 'ShippingAddress', 'Name'});
     
@@ -89,7 +91,7 @@ public with sharing class SObjectUtil {
         //  Populate data for the main SObject
         try {
             this.populateMapFieldInformation(reqSObjectType);
-            this.populateMapRecordTypes(reqSObjectType);
+            this.populateRecordTypeInformation(reqSObjectType);
         } catch (Exception e) {
             throw new SOBjectUtilException('Could not set up data for SObject: ' + reqSObjectType + '. An error occurred: ' + e.getMessage());
         }
@@ -187,30 +189,37 @@ public with sharing class SObjectUtil {
 
 
     /**
-     * Populates the public variable in the class: mapRecordTypeNameToId
-     * @param   String. API Name of the SObject to populate Record Type
-     *          information for.
+     * Uses the Schema class to get information about Record Types for the SObject. Also popultes
+     * Ids for the default record type Id for the user, and the master record type Id to fall back on
+     * @param   String. The name of the SObject
      */
-    private void populateMapRecordTypes(String theSObjectType) {
+    private void populateRecordTypeInformation(String theSObjectType) {
         this.mapRecordTypeNameToId = new Map<String, Id>();
+        Schema.DescribeSObjectResult sObjectResult = null;
 
-        for (RecordType rt : this.queryRecordTypes(theSObjectType)) {
-            this.mapRecordTypeNameToId.put(rt.DeveloperName, rt.Id);
+        try {
+            List<Schema.DescribeSObjectResult> tempSObjResults = Schema.describeSObjects(new List<String>{theSObjectType});
+            sObjectResult = tempSObjResults[0];
+        } catch (Exception e) {
+            System.debug('SObjectUtil: Could not populate record types using Schema for: ' + theSObjectType);
+            System.debug(e.getMessage());
+            return;
         }
-    }
 
-
-    /**
-     * Uses a SOQL query to get all record types for the given sobject
-     * @param   String. Name of the SObject to query record types for
-     * @return  List<RecordType>
-     */
-    private List<RecordType> queryRecordTypes(String theSObjectType) {
-        return [
-            SELECT Id, Name, DeveloperName, IsActive, SObjectType, Description
-            FROM RecordType
-            WHERE SObjectType = :theSObjectType
-        ];
+        for (Schema.RecordTypeInfo rti : sObjectResult.getRecordTypeInfos()) {
+            //  Default record type for the user running the code
+            if (rti.isDefaultRecordTypeMapping()) {
+                this.recordTypeIdDefault = rti.getRecordTypeId();
+            }
+            //  Default record type for the SObject. Used as a fall back
+            if (rti.isMaster()) {
+                this.recordTypeIdMaster = rti.getRecordTypeId();
+            }
+            //  Populate the map for DeveloperName to RecordTypeId
+            if (rti.getDeveloperName() != 'Master') {   //  Don't need as this isn't returned when using SOQL
+                this.mapRecordTypeNameToId.put(rti.getDeveloperName(), rti.getRecordTypeId());
+            }
+        }
     }
 
 
@@ -221,21 +230,24 @@ public with sharing class SObjectUtil {
     /**
      * Creates a query string for lookup fields on the current object
      * @param   String. The field related to the sobject lookup to create a query string for
+     *                  - If it is a standard lookup, then the field name will end with 'Id'
+     *                  - If it is a custom lookup, then the field name will end with '__c'
      * @return  String. The query string for the SObject
      */
-    public String createQueryStringForRelatedSObject(String passedFieldName) {
+    public String createQueryStringForRelatedSObject(String passedSObjFieldName) {
         //  Handle if the sobject lookup doesn't exist
-        if (!this.mapFieldNameToSObjectType.containsKey(passedFieldName)) {
+        if (!this.mapFieldNameToSObjectType.containsKey(passedSObjFieldName)) {
             return '';
         }
 
-        String sObjectName = this.mapFieldNameToSObjectType.get(passedFieldName);
+        String sObjectName = this.mapFieldNameToSObjectType.get(passedSObjFieldName);
         String queryString = '';
         for (String fieldName : this.mapRelatedSObjectFields.get(sObjectName)) {
-            queryString += sObjectName.replace('__c', '__r') + '.' + fieldName + ',';
+            queryString += passedSObjFieldName.replace('__c', '__r').removeEndIgnoreCase('id') + '.' + fieldName.capitalize() + ',';
         }
         return queryString.removeEnd(',');
     }
+
 
     /**
      * Same as above, but accepts Set<String>
@@ -248,6 +260,7 @@ public with sharing class SObjectUtil {
         return queryString.removeEnd(',');
     }
 
+
     /**
      * Same as above, but accepts List<String>
      */
@@ -255,6 +268,22 @@ public with sharing class SObjectUtil {
         Set<String> setSObjectNames = new Set<String>();
         setSObjectNames.addAll(sObjectNames);
         return this.createQueryStringForRelatedSObjects(setSObjectNames);
+    }
+
+
+    /**
+     * Returns the default record type Id for the user. If none is found,
+     * returns the Master record type Id. Returns null if both aren't populated
+     * @return  Id. The record type Id
+     */
+    public Id getDefaultRecordTypeId() {
+        if (this.recordTypeIdDefault != null) {
+            return this.recordTypeIdDefault;
+        } else if (this.recordTypeIdMaster != null) {
+            return this.recordTypeIdMaster;
+        }
+        //  I don't really expect this to ever happen, just a catch-all
+        return null;
     }
 
 
