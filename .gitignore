@@ -4,6 +4,7 @@
 
 # Salesforce cache
 .sfdx/
+.soql/
 
 # VS Code cache
 .vscode/
@@ -28,4 +29,10 @@ node_modules/
 Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
-$RECYCLE.BIN/
+$RECYCLE.BIN
+
+# LWC Local Server & Other
+.localdevserver/
+force-app/main/default/lwc/jsconfig.json
+
+# Misc files, folders, and scripts
