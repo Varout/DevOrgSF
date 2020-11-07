@@ -11,7 +11,7 @@
     <types>
         <members>*</members>
         <name>ApexTrigger</name>
-    </types> <!--
+    </types>
     <types>
         <members>*</members>
         <name>ApexComponent</name>
@@ -34,12 +34,14 @@
     </types>
     <types>
         <members>*</members>
-        <name>PermissionSet</name>
+        <name>Layout</name>
     </types>
     <types>
         <members>*</members>
-        <name>Profile</name>
+        <name>FlexiPage</name>
     </types>
+<!--
+    Reports, ReportType, and Dashboard not tracked as these can be changed on the fly in a production org
     <types>
         <members>*</members>
         <name>Report</name>
@@ -50,7 +52,27 @@
     </types>
     <types>
         <members>*</members>
+        <name>Dashboard</name>
+    </types>
+-->
+<!--
+    PerissionSet, Profile, and Role not tracked as there is no point in this org currently
+    <types>
+        <members>*</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>Role</name>
+    </types>
+-->
+    <types>
+        <members>*</members>
+        <name>Flow</name>
     </types>
     <types>
         <members>*</members>
@@ -72,6 +94,6 @@
         <members>Opportunity</members>
         <members>OpportunityLineItem</members>
         <name>CustomObject</name>
-    </types> -->
-    <version>48.0</version>
+    </types>
+    <version>50.0</version>
 </Package>

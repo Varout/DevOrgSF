@@ -40,6 +40,7 @@ global class ExampleScheduledJob implements Schedulable {
 
         AsyncApexJob job = [SELECT Id, Status, JobItemsProcessed, TotalJobItems, NumberOfErrors FROM AsyncApexJob WHERE ID = :batchId];
     }
+
 /*
     Useful SOQL Queries
 

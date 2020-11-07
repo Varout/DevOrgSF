@@ -33,6 +33,7 @@ public class ExampleSingleton {
         System.debug(returnString);
         return returnString;
     }
+
 /*
     //  Example of how to use the pattern
     class public ClassName {

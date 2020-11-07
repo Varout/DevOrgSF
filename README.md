@@ -22,9 +22,8 @@ _Currently in progress_
 
 | Project Name   | Github Branch                                    |Description / Trailhead Link                        |
 |:---------------|:------------------------------------------------:|:--------------------------------------------------:|
-| TBD            | [Here](https://github.com/Varout/DevOrgSF/tree/) | [Here](https://trailhead.salesforce.com/projects/) | 
+| TBD            | TBD  | [Here](https://trailhead.salesforce.com/projects/) |
 | SObjectUtil    | [Here](https://github.com/Varout/SObjectUtil)    |                                                    |
-| LWC CSV Export | [WIP](#)                                         |                                                    |
 
 # SOBjectUtil Class Information
 

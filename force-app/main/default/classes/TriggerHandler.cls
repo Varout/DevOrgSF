@@ -1,7 +1,7 @@
 /**
  * Class: TriggerHandler.cls
  * Test:  TriggerHandlerTest.cls
- * 
+ *
  * Copyright (c) 2013 Kevin M. O'Hara
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -39,7 +39,7 @@ public virtual class TriggerHandler {
         loopCountMap = new Map<String, LoopCount>();
         bypassedHandlers = new Set<String>();
     }
-   
+
     //  Constructor
     public TriggerHandler() {
         this.setTriggerContext();
@@ -82,7 +82,7 @@ public virtual class TriggerHandler {
     public void clearMaxLoopCount() {
         this.setMaxLoopCount(-1);
     }
-    
+
     /***************************************/
     /*          Public Static Methods      */
     /***************************************/
@@ -98,7 +98,7 @@ public virtual class TriggerHandler {
     public static void clearAllBypasses() {
         TriggerHandler.bypassedHandlers.clear();
     }
-    
+
     /**************************************/
     /*          Private Instancemethods   */
     /**************************************/
@@ -106,7 +106,7 @@ public virtual class TriggerHandler {
     private void setTriggerContext() {
         this.setTriggerContext(null, false);
     }
-    
+
     @TestVisible
     private void setTriggerContext(String ctx, Boolean testMode) {
         if(!Trigger.isExecuting && !testMode) {
@@ -115,7 +115,7 @@ public virtual class TriggerHandler {
         } else {
             this.isTriggerExecuting = true;
         }
-         
+
         if((Trigger.isExecuting && Trigger.isBefore && Trigger.isInsert) ||
             (ctx != null && ctx == 'before insert')) {
             this.context = TriggerContext.BEFORE_INSERT;
@@ -164,7 +164,7 @@ public virtual class TriggerHandler {
         }
         return true;
     }
-    
+
     @TestVisible
     private String getHandlerName() {
         return String.valueOf(this).substring(0,String.valueOf(this).indexOf(':'));
@@ -226,7 +226,7 @@ public virtual class TriggerHandler {
             this.max = max;
         }
     }
-    
+
     //  Possible trigger contexts
     @TestVisible
     private enum TriggerContext {
@@ -234,7 +234,7 @@ public virtual class TriggerHandler {
         AFTER_INSERT, AFTER_UPDATE, AFTER_DELETE,
         AFTER_UNDELETE
     }
-    
+
     // Exception class
     public class TriggerHandlerException extends Exception {}
 }

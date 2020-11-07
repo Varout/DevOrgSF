@@ -28,6 +28,6 @@ global class ExampleBatchJob implements Database.Batchable<sObject>, Database.St
      * Reporting goes here. E.g. Sending emails, create new records to report on batch
      */
     global void finish(Database.BatchableContext bc) {
-        
+
     }
 }
