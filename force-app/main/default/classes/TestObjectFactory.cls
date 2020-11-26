@@ -5,8 +5,8 @@
 public class TestObjectFactory {
 
     //  Note to self: Could be worth changing SObjectUtil class to use a Singleton method
-    final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
-    final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
+    // final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
+    // final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
 
     /* **************************************************  */
     /*                    General                          */
