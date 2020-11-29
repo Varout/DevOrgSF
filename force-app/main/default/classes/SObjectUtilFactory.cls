@@ -26,15 +26,15 @@
 public class SObjectUtilFactory {
     public class SObjectUtilFactoryException extends Exception{}
 
-    public SObjectUtil testUtil { get; private set; }
+    // public SObjectUtil testUtil { get; private set; }
 
-    public SObjectUtilFactory(String sObjectName) {
-        this.testUtil = new SObjectUtil(sObjectName);
-    }
+    // public SObjectUtilFactory(String sObjectName) {
+    //     this.testUtil = new SObjectUtil(sObjectName);
+    // }
 
-    public SObjectUtilFactory(SObjectUtil theUtil) {
-        this.testUtil = theUtil;
-    }
+    // public SObjectUtilFactory(SObjectUtil theUtil) {
+    //     this.testUtil = theUtil;
+    // }
 
     /*  ****************************************  */
     /*             Private Functions              */
