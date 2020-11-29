@@ -5,8 +5,8 @@
 public class TestObjectFactory {
 
     //  Note to self: Could be worth changing SObjectUtil class to use a Singleton method
-    final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
-    final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
+    // final private static SObjectUtil OBJ_UTIL_ACCOUNT = new SObjectUtil('Account');
+    // final private static SObjectUtil OBJ_UTIL_CONTACT = new SObjectUtil('Contact');
 
     /* **************************************************  */
     /*                    General                          */
@@ -210,16 +210,15 @@ public class TestObjectFactory {
     }
 
     /**
-     * IDEA: 
+     * IDEA:
      * Create a test method that accepts a string of SObject names
      * Check that all objects exist in the org
      * Use SObjectUtil to create objects with bare minimum insert criteria i.e. All required fields on the SObject side populated
-     * 
+     *
      * Would this be worth the extra DML?
      * 1 to check the SObjectType
      * 3 per SObject
      *   -) 2 per creation of the SObjectUtil
      *   -) 1 to insert per SObject
      */
-
 }

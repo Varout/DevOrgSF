@@ -1,7 +1,7 @@
 /**
  * Class:   TriggerHandlerTest.cls
  * Testing: TriggerHandler.cls
- * 
+ *
  * Copyright (c) 2013 Kevin M. O'Hara
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -34,7 +34,7 @@ private class TriggerHandlerTest {
         //  Override its internal trigger detection.
         handler.isTriggerExecuting = true;
     }
-    
+
     /***************************************/
     /*                Unit Tests           */
     /***************************************/
@@ -157,7 +157,7 @@ private class TriggerHandlerTest {
         } catch(TriggerHandler.TriggerHandlerException te) {
             //  We're expecting to get here
             System.assertEquals(null, lastMethodCalled, 'Last method should be null');
-        } catch(Exception e) { 
+        } catch(Exception e) {
             System.assert(false, 'The exception thrown was not expected: ' + e.getTypeName() + ': ' + e.getMessage());
         }
         //  Clear the tests
@@ -170,7 +170,7 @@ private class TriggerHandlerTest {
             System.assertEquals('beforeInsert', lastMethodCalled, 'last method should be beforeInsert');
         } catch(TriggerHandler.TriggerHandlerException te) {
             System.assert(false, 'running the handler after clearing the loop count should not throw');
-        } catch(Exception e) { 
+        } catch(Exception e) {
             System.assert(false, 'the exception thrown was not expected: ' + e.getTypeName() + ': ' + e.getMessage());
         }
     }
@@ -193,16 +193,16 @@ private class TriggerHandlerTest {
         System.assertEquals(6, lc.getCount(), 'count should be 6');
         System.assertEquals(true, lc.exceeded(), 'should not be exceeded with count of 6');
     }
-     
-    /** 
+
+    /**
      * Private method tests
      */
     @isTest
     static void testGetHandlerName() {
         System.assertEquals('TestHandler', handler.getHandlerName(), 'handler name should match class name');
     }
-    
-    /** 
+
+    /**
      * Test virtual methods
      */
     @isTest
