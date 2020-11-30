@@ -29,21 +29,35 @@ public with sharing class SObjectHelper {
 
     public class SObjectHelperException extends Exception{}
 
-    final private Set<String> ENUM_LOOKUPS = new Set<String>{'REFERENCE'};
-    final private Set<String> ENUM_PICKLISTS = new Set<String>{'PICKLIST', 'MULTIPICKLIST'};
-    //  Salesforce ENUM information: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_enum_Schema_DisplayType.htm
-    final private Set<String> ENUM_FIELD_TYPES = new Set<String>{
+    final private Set<String> ENUM_LOOKUPS = new Set<String> {'REFERENCE'};
+    final private Set<String> ENUM_PICKLISTS = new Set<String> {'PICKLIST', 'MULTIPICKLIST'};
+    //  Salesforce ENUM Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_enum_Schema_DisplayType.htm
+    final private Set<String> ENUM_FIELD_TYPES = new Set<String> {
         'ADDRESS', 'ANYTYPE', 'BASE64', 'BOOLEAN', 'COMBOBOX', 'CURRENCY',
         'DATACATEGORYGROUPREFERENCE', 'DATE', 'DATETIME', 'DOUBLE', 'EMAIL',
         'ENCRYPTEDSTRING', 'ID', 'INTEGER', 'LONG', 'MULTIPICKLIST', 'PERCENT',
         'PHONE', 'PICKLIST', 'REFERENCE', 'STRING', 'TEXTAREA', 'TIME', 'URL'
+    };
+    //  Salesforce Setup Objects Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/reference_objects_setup.htm
+    //  Set last updated 2020-11-30
+    private final Set<String> SET_SETUP_OBJECTS = new Set<String> {
+        'BusinessProcess', 'CleanDataService', 'CleanRule', 'CompactLayout', 'CompactLayoutInfo',
+        'ComapctLayoutItemInfo', 'CustomField', 'CustomFieldMember', 'CustomObject', 'CustomTab',
+        'DataAssessmentConfigItem', 'DataIntegrationRecordPurchasePermission', 'DuplicateJobDefinition',
+        'DuplicateJobMatchingRuleDefinition', 'Document', 'EmailTemplate', 'EntityDefinition', 'EntityLimit',
+        'FieldDefinition', 'FieldMapping', 'FieldMappingField', 'FieldMappingRow', 'FieldSet', 'FlexiPage',
+        'Flow', 'FlowDefinition', 'Group', 'HistoryRetentionJob', 'KeywordList', 'Layout', 'LookupFilter',
+        'MatchingRule', 'MenuItem', 'ModerationRule', 'Profile', 'ProfileLayout', 'QuickActionDefinition',
+        'QuickActionList', 'QuickActionListItem', 'RecentlyViewed', 'RecordType', 'SearchLayout', 'Scontrol',
+        'User', 'WebLink', 'ValidationRule', 'WorkflowFieldUpdate', 'WorkflowOutboundMessage', 'WorkflowRule',
+        'WorkflowAlert', 'WorkflowTask'
     };
     public Map<String, Set<String>> evilObjectFieldNames = new Map<String, Set<String>>();
 
     private SObjectType theSObjectDescribe { get; set; }
     public Id recordTypeIdDefault          { get; private set; }
     public Id recordTypeIdMaster           { get; private set; }
-    public Set<String> setLookupDevNames   { get; set; }
+    public Set<String> setLookupDevNames   { get; private set; }
     public String selectAllString          { get; private set; }        //  A comma separated string of all fields on the SObject. Intended to act as * for SOQL queries
     public Set<String> fieldsRequired      { get; private set; }        //  The DeveloperNames of required fields on the SObject level
     public Set<String> fieldsUnique        { get; private set; }        //  The DeveloperNames of fields that need to be unique to create or update a record
@@ -53,7 +67,7 @@ public with sharing class SObjectHelper {
     public Map<String, List<Schema.PicklistEntry>> mapPicklistValues { get; private set; }  //  Maps the DeveloperName of a picklist or multipicklist to its PicklistEntry vales
     public Map<String, Set<String>> mapLookupDevNameToFields { get; private set; }          //  Maps the DeveloperName of a lookup field to a Set of strings which are the DeveloperNames of fields on the related SObject (Not automatically populated)
 
-    public Map<String, String> mapFieldNameToSObjectType { get; private set; }              //  Maps the looup field name to the SObject
+    public Map<String, String> mapFieldNameToSObjectType    { get; private set; }           //  Maps the looup field name to the SObject
     public Map<String, Set<String>> mapRelatedSObjectFields { get; private set; }           //  Used for Lookups and MD-Lookups. Maps lookup field name to the set of fields on that object
 
     private static Map<String, SObjectHelper> mapSObjectHelpers = new Map<String, SObjectHelper>();
@@ -62,6 +76,7 @@ public with sharing class SObjectHelper {
         if (mapSObjectHelpers.containsKey(objectName) == false) {
             mapSObjectHelpers.put(objectName, new SObjectHelper(objectName));
         }
+
         return mapSObjectHelpers.get(objectName);
     }
 
@@ -83,7 +98,8 @@ public with sharing class SObjectHelper {
         if (this.theSObjectDescribe == null) {
             String errorString = '';
             errorString += 'The SObject: "' + reqSObjectType + '" does not exist in this org. ';
-            errorString += 'If you are using a custom object, remember to add the __c at the end. ';
+            errorString += 'If you are using a custom object, remember to add the __c at the end.';
+
             throw new SObjectHelperException(errorString);
         }
 
