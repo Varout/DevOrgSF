@@ -72,24 +72,6 @@ public with sharing class SObjectHelperTestFactory {
     }
 
 
-    //  The next two functions are commented out by default.  Feel free to remove the comments
-    //  if you are using the O'Hara trigger pattern in your Org
-
-    // /**
-    //  *
-    //  */
-    // public static void bypassTriggers() {
-    //     SObjectHelperTestFactory.BYPASS_TRIGGERS = true;
-    // }
-
-
-    // /**
-    //  *
-    //  */
-    // public static void bypassTriggersClear() {
-    //     SObjectHelperTestFactory.BYPASS_TRIGGERS = false;
-    //     TriggerHandler.clearAllBypasses();
-    // }
 
     /* ************************************************ */
     /* Public Static Functions With Additional Boolean  */
@@ -133,11 +115,120 @@ public with sharing class SObjectHelperTestFactory {
     /* ************************************************ */
 
 
+    /**
+     * Returns a random String of alphanumeric characters of length 50
+     * @return  String. The randomly generated string
+     */
+    @TestVisible
+    private static String createRandomString() {
+        return createRandomString(50);
+    }
+
+
+    /**
+     * Returns a random String of alphanumeric characters of a defined length
+     * @param   Integer. The length of the string to be created. Must be a positive value
+     * @return  String. The randomly generated string
+     */
+    @TestVisible
+    private static String createRandomString(Integer stringLength) {
+        return '';
+    }
+
+
+    /**
+     * Creates a random Integer of length 10
+     * @return  Integer. The randomly generated integer
+     */
+    @TestVisible
+    private static Integer createRandomInteger() {
+        return createRandomInteger(10);
+    }
+
+
+    /**
+     * Creates a random Integer of a defined length
+     * @param   Integer. The length of the integer to create. Cannot be longer than length 16. Must be a positive value
+     * @return  Integer. The randomly generated integer
+     */
+    @TestVisible
+    private static Integer createRandomInteger(Integer length) {
+        return null;
+    }
+
+
+    /**
+     * Creates a random Decimal with a length of 8 for the whole number portion and 2 decimal places
+     * @return  Decimal. The randomly generated decimal
+     */
+    @TestVisible
+    private static Decimal createRandomDecimal() {
+        return createRandomDecimal(8, 2);
+    }
+
+
+    /**
+     * Creates a random Decimal of a defined length. The whole number portion and decimal places portion lengths
+     * cannot add up to a number larger than 16. If a length larger than 16 is passed, the value will default
+     * to be equivalent to createRandomDecimal(16, 0). Must be a positive value
+     * @return  Decimal. The randomly generated decimal
+     */
+    @TestVisible
+    private static Decimal createRandomDecimal(Integer wholeNumber, Integer partNumber) {
+        return null;
+    }
+
+
+    /**
+     * 
+     */
+    @TestVisible
+    private static String selectRandomPicklistValue(Set<String> setAvailablePicklistValues) {
+        return null;
+    }
+
+
+    /**
+     * 
+     */
+    @TestVisible
+    private static String selectRandomDependantPicklistvalue(Set<String> setChildPicklistValues, Set<String> setParentPicklistValues) {
+        return null;
+    }
+
+    /* ************************************************ */
+    /*     O'Hara Trigger Pattern Related Functions     */
+    /*                                                  */
+    /* The following functions come as commented out by */
+    /* default, along with their test functions in the  */
+    /* unit test class. If you are using the O'Hara     */
+    /* SFDC Trigger Pattern, you can use this code for  */
+    /* extra functionality.                             */
+    /* ************************************************ */
+
+    // /**
+    //  *
+    //  */
+    // public static void bypassTriggers() {
+    //     SObjectHelperTestFactory.BYPASS_TRIGGERS = true;
+    // }
+
+
+    // /**
+    //  *
+    //  */
+    // public static void bypassTriggersClear() {
+    //     SObjectHelperTestFactory.BYPASS_TRIGGERS = false;
+    //     TriggerHandler.clearAllBypasses();
+    // }
+
+
     // private static void bypassTriggersForSObjects(Set<String> setSObjectsToBypass) {
     //     for (String sObjName : setSObjectsToBypass) {
     //         TriggerHandler.bypass(sObjName + SObjectHelperTestFactory.TRIGGER_PATTERN);
     //     }
     // }
+
 
 
 }
