@@ -40,6 +40,7 @@ $RECYCLE.BIN
 force-app/main/default/lwc/jsconfig.json
 
 # Misc files, folders, and scripts
+package-lock.json
 
 # Not mine to share
 force-app/main/default/classes/QueryUtil.cls*
