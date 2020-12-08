@@ -175,26 +175,36 @@ public with sharing class SObjectHelperTestFactory {
      */
     @TestVisible
     private static Decimal createRandomDecimal(Integer wholeNumber, Integer partNumber) {
+        //  https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_decimal.htm#apex_methods_system_decimal
         return null;
     }
 
 
     /**
-     * 
+     * Given a picklist, select a random value from it
+     * @param   List<String>. A list of strings which contains the options for the picklist
+     * @return  String. The random value to be used
      */
     @TestVisible
-    private static String selectRandomPicklistValue(Set<String> setAvailablePicklistValues) {
-        return null;
+    private static String selectRandomPicklistValue(List<String> listAvailablePicklistValues) {
+        Integer randomIndexInt = Integer.valueOf(Math.floor(Math.random() * listAvailablePicklistValues.size()));
+        return listAvailablePicklistValues[randomIndexInt];
     }
 
 
     /**
-     * 
+     * Returns a random Boolean value
      */
     @TestVisible
-    private static String selectRandomDependantPicklistvalue(Set<String> setChildPicklistValues, Set<String> setParentPicklistValues) {
-        return null;
+    private static Boolean returnRandomBoolean() {
+        if (Math.mod(Math.round( Math.random() * 10), 2) == 1)  {
+            return true;
+        } else {
+            return false;
+        }
     }
+
+
 
     /* ************************************************ */
     /*     O'Hara Trigger Pattern Related Functions     */
@@ -228,7 +238,4 @@ public with sharing class SObjectHelperTestFactory {
     //         TriggerHandler.bypass(sObjName + SObjectHelperTestFactory.TRIGGER_PATTERN);
     //     }
     // }
-
-
-
 }
