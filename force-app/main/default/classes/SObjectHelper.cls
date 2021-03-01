@@ -26,7 +26,12 @@
  *           SOFTWARE.
  */
 public with sharing class SObjectHelper {
-
+/**
+ *
+ * Find out default values for fields if there is one
+ * Check to see if a field isChangeable()/isUpdateable()
+ *
+ */
     public class SObjectHelperException extends Exception{}
 
     final private Set<String> ENUM_LOOKUPS = new Set<String>{'REFERENCE'};
@@ -117,44 +122,45 @@ public with sharing class SObjectHelper {
      * @param   String. API Name of the SObject to populate field name and type inforation for.
      */
     private void populateMapFieldInformation(String theSObjectType) {
-        Map<String, Schema.SObjectField> mapAccFields = this.theSObjectDescribe.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> mapSObjFields = this.theSObjectDescribe.getDescribe().fields.getMap();
+        Set<Schema.SObjectField> setSObjFields = new Set<Schema.SObjectField>(this.theSObjectDescribe.getDescribe().fields.getMap().values());
 
-        for (String fieldKey : mapAccFields.keySet()) {
+        for (String fieldKey : mapSObjFields.keySet()) {
             //  Populdate map of FieldName to FieldType
-            String fieldName = mapAccFields.get(fieldKey).getDescribe().getName();
+            String fieldName = mapSObjFields.get(fieldKey).getDescribe().getName();
 
             if (this.evilObjectFieldNames.containsKey(theSObjectType) && this.evilObjectFieldNames.get(theSObjectType).contains(fieldName)) {
                 continue;
             }
 
-            String fieldType = String.valueOf(mapAccFields.get(fieldKey).getDescribe().getType());
+            String fieldType = String.valueOf(mapSObjFields.get(fieldKey).getDescribe().getType());
             this.mapDevNameToType.put(fieldName, fieldType);
 
             //  Populates set of unique fields on the SObject
-            if (mapAccFields.get(fieldKey).getDescribe().isUnique()) {
-                this.fieldsUnique.add(mapAccFields.get(fieldKey).getDescribe().getName());
+            if (mapSObjFields.get(fieldKey).getDescribe().isUnique()) {
+                this.fieldsUnique.add(mapSObjFields.get(fieldKey).getDescribe().getName());
             }
 
             //  Populates set of required fields on the SObject level
-            if (!mapAccFields.get(fieldKey).getDescribe().isNillable()) {
-                this.fieldsRequired.add(mapAccFields.get(fieldKey).getDescribe().getName());
+            if (!mapSObjFields.get(fieldKey).getDescribe().isNillable()) {
+                this.fieldsRequired.add(mapSObjFields.get(fieldKey).getDescribe().getName());
             }
 
             //  Populate map of FieldName to PicklistValues for any picklist field type
             if (this.ENUM_PICKLISTS.contains(fieldType.toUpperCase())) {
-                this.mapPicklistValues.put(fieldName, mapAccFields.get(fieldKey).getDescribe().getPicklistValues());
+                this.mapPicklistValues.put(fieldName, mapSObjFields.get(fieldKey).getDescribe().getPicklistValues());
             }
 
             //  Populate set of Lookup and Master-Detail fields on the SObject
             if (this.ENUM_LOOKUPS.contains(fieldType.toUpperCase())) {
-                if (mapAccFields.get(fieldKey).getDescribe().isNamePointing()) {
+                if (mapSObjFields.get(fieldKey).getDescribe().isNamePointing()) {
                     //  isNamePointing(): If getDescribe points to more than one object
                     //  Example of this is the lookup can look to: User, Group
-                    for (Schema.SObjectType sot : mapAccFields.get(fieldKey).getDescribe().getReferenceTo()) {
+                    for (Schema.SObjectType sot : mapSObjFields.get(fieldKey).getDescribe().getReferenceTo()) {
                         this.populateRelatedSObjectInformation(fieldName, sot);
                     }
                 } else {
-                    this.populateRelatedSObjectInformation(fieldName, mapAccFields.get(fieldKey).getDescribe().getReferenceTo()[0]);
+                    this.populateRelatedSObjectInformation(fieldName, mapSObjFields.get(fieldKey).getDescribe().getReferenceTo()[0]);
                 }
             }
         }
