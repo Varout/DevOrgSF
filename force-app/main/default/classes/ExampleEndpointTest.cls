@@ -39,5 +39,4 @@ private class ExampleEndpointTest {
     static void exampleTestSuccessFail() {
 
     }
-
 }
